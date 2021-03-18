@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="de.schley.schleyapp" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>SchleyAPP</name>
+    <description>
+        Dies ist die Testversion der Schley App
+    </description>
+    <author email="info@oliverkierepka.de" href="http://schley.de">
+        Schley App Team
+    </author>
+    <access origin="*" />
+    <preference name="fullscreen" value="true" />
+    <preference name="webviewbounce" value="false" />
+    <preference name="SplashScreen" value="splash" />
+    <preference name="SplashScreenDelay" value="5000" />
+    <preference name="KeyboardDisplayRequiresUserAction" value="false" />
+    
+    <!-- Define app splash screen for each platform. -->
+    <gap:splash src="res/drawable-ldpi/splash.9.png"       gap:platform="android" gap:qualifier="port-ldpi" />
+    <gap:splash src="res/drawable-mdpi/splash.9.png"       gap:platform="android" gap:qualifier="port-mdpi" />
+    <gap:splash src="res/drawable-hdpi/splash.9.png"       gap:platform="android" gap:qualifier="port-hdpi" />
+    <gap:splash src="res/drawable-xhdpi/splash.9.png"      gap:platform="android" gap:qualifier="port-xhdpi" />
+    <gap:splash src="Resources/splash/Default~iphone.png"         gap:platform="ios"     width="320" height="480" />
+    <gap:splash src="Resources/splash/iphone4_splash@2x.png"      gap:platform="ios"     width="640" height="960" />
+    <gap:splash src="Resources/splash/Default-568h@2x~iphone.png" gap:platform="ios"     width="640" height="1136" />
+    <gap:splash src="Resources/splash/Default-Portrait~ipad.png"           gap:platform="ios"     width="768" height="1024" />
+    <gap:splash src="Resources/splash/ipadr_splash@2x-ipad.png"           gap:platform="ios"     width="1536" height="2048" />
+
+    
+</widget>

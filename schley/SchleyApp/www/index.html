@@ -1,0 +1,1700 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Schley APP</title>
+		<meta name="robots" content="noindex,nofollow">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+        <script src="js/vendor/modernizr.custom.14878.js"></script>
+		<script type='application/javascript' src='js/vendor/fastclick.js'></script>	
+		<link rel="stylesheet" href="js/vendor/jquery.mobile-1.3.2/jquery.mobile-1.3.2.min.css" />
+		<script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+		<script src="js/vendor/jquery-1.9.1.min.js"></script>
+		<script src="cordova.js"></script>
+        <script>
+            // START NORMAL STUFF //
+            $(document).bind("mobileinit", function() {
+            //apply overrides here
+            $.extend($.mobile, {
+                  loadingMessage : "lade",
+                  loadingMessageTextVisible : true,
+                  pageLoadErrorMessage : "Seite konnte nicht geladen werden",
+                  phonegapNavigationEnabled : true,
+                  touchOverflowEnabled : true,
+                  allowCrossDomainPages : true,
+                  transitionFallbacks : "fade"
+                  });
+            });
+            $.support.cors = true;
+        </script>
+		<script src="js/vendor/jquery.mobile-1.3.2/jquery.mobile-1.3.2.min.js"></script>
+        <script src="js/schley.js"></script>
+		<script src="js/vendor/moment-with-langs.min.js"></script>
+		<script src="js/vendor/moment-range.js"></script>
+		<!-- jquery.ui-map start -->
+		<script src="js/vendor/jquery.ui.map.full.min.js"></script>
+		<!-- jquery.ui-map end -->
+		<link rel="stylesheet" href="css/schleyapp.css" />
+		<link rel="stylesheet" href="js/vendor/owlslider/owl.css" />
+		<!-- Important Owl stylesheet -->
+		<link rel="stylesheet" href="js/vendor/owl-carousel/owl.carousel.css" />
+		<!-- Default Theme -->
+		<link rel="stylesheet" href="js/vendor/owl-carousel/owl.theme.css" />
+		<!-- Include js plugin -->
+		<script src="js/vendor/owl-carousel/owl.carousel.js"></script>
+	</head>
+	<body>
+
+        <div data-role="page" id="splash" data-theme="schley" data-tap-toggle="false">
+                <div data-role="content" class="content fullbg">
+                   
+                    <a href="#login" id="splashscreen"><img src="img/Splash_Schley-APP_1536x2048.jpg" alt="splashscreen" />
+                    <style>
+                        #splashscreen {
+                            display: block; width: 100%;height: 100%;
+                        }
+                        #splashscreen img {
+                            display: block;width:100%;height:auto;
+                        }
+                    </style>
+                                        
+                    </a>
+                </div>
+        </div>
+		<div data-role="page" id="login" data-theme="schley" data-tap-toggle="false">
+			
+			<div data-role="content" class="content fullbg">
+				<div class="centered">
+                    <div class="logo"></div>
+                    <form class="schleyform" data-ajax="false" id="SignInForm" name="SignInForm" action="http://www.oliverkierepka.de/kunden/schleyapp/login_register/user/login.php" method="POST">
+                        <input type="hidden" name="submit" id="submit" value="1" />
+                        <fieldset data-role="fieldcontain">
+                            <div data-role="fieldcontain" class="msg error" id="SignInFormMessage"></div>
+                            <div data-role="fieldcontain" class="ui-hide-label">
+                                <label for="name" class="ui-hidden-accessible">Benutzername</label>
+                                <input type="text" id="name" name="name" placeholder="Benutzername" required/>
+                            </div>
+                            <div data-role="fieldcontain" class="ui-hide-label" style="margin-bottom: 0 !important">
+                                <label for="password" class="ui-hidden-accessible ui-corner-none">Passwort</label>
+                                <input type="password" id="password" name="password" placeholder="Passwort" required/>
+                            </div>
+                        
+                            <label for="rememberme">Angemeldet bleiben?
+									<input type="checkbox" name="rememberme" id="rememberme" />
+                            </label>
+                            
+                        </fieldset>
+                        <a id="btnLogin" href="" class="btn">
+                            <i class="fa fa-chevron-circle-right pull-right"></i><span class="label">Jetzt einloggen</span>
+                        </a>
+                    </form>
+                    <a href="#registrieren" class="btn transparent autowidth"><i class="fa fa-chevron-circle-right pull-right"></i><span class="label">Jetzt registrieren</span></a>
+                    
+                </div>              
+
+			</div>
+		</div>
+	
+        <div data-role="page" id="loggedout" data-theme="schley" data-tap-toggle="false">
+		
+        
+			<div data-role="content" class="content">          
+                <a href="#login" data-icon="arrow-r"  title="Login" data-role="button" class="ui-submit" id="schleycoupon_btn">Zum Login</a>
+			</div>
+		</div>
+        
+        
+		<div data-role="page" id="registrieren" data-theme="schley" data-tap-toggle="false">
+			
+			<div data-role="content" class="content fullbg">
+                <div class="centered">
+                    <div class="logo"></div>
+                    <form  id="RegisterForm" class="schleyform" name="RegisterForm" action="login_register/user/register.php" method="post">
+                        <input type="hidden" name="devicetoken" />
+                        <input type="hidden" name="register" id="register" value="1" />
+    
+                        <fieldset data-role="fieldcontain">
+                            <h2>Ein neues Konto erstellen</h2>
+                            <div data-role="fieldcontain" class="msg error" id="RegisterFormMessage"></div>
+    
+                            <div data-role="fieldcontain" class="ui-hide-label">
+                                <label for="reg-name" class="ui-hidden-accessible">Benutzername: </label>
+                                <input type="text" id="reg-name" name="reg-name" placeholder="Benutzername" required/>
+                            </div>
+                            <div data-role="fieldcontain" class="ui-hide-label">
+                                <label for="reg-email" class="ui-hidden-accessible">Email: </label>
+                                <input type="email" id="reg-email" name="reg-email" placeholder="E-Mailadresse" required/>
+                            </div>
+                            <div data-role="fieldcontain" class="ui-hide-label">
+                                <label for="reg-password" class="ui-hidden-accessible">Password: </label>
+                                <input type="password" id="reg-password" name="reg-password" placeholder="Passwort" required />
+                            </div>
+    
+                        </fieldset>
+                            <a id="btnRegister" href="" class="btn">
+                                <i class="fa fa-chevron-circle-right pull-right"></i><span class="label">Registrieren</span>
+                            </a>
+                    </form>
+                    <div class="centered">
+                        <a href="#login" class="btn transparent autowidth"><i class="fa fa-chevron-circle-left"></i><span class="label">zurück zum Login</span></a>
+    
+                    </div> 
+                </div>
+			</div>
+
+		</div>
+
+		<div data-role="page" class="ui-responsive-panel" id="dashboard" data-theme="schley" data-tap-toggle="false">
+			<div data-role="header" class="ui-overlay-shadow" data-position="fixed" data-tap-toggle="false" data-id="schleyheader">
+				<span class="ui-btn-rose-noback"></span>
+				<h1>Schley App</h1>
+				<div class="ui-btn-right">
+					<a href="tel:+49201289900" class="btn_phone tablet-hide" title="Jetzt anrufen" data-iconpos="notext" data-role="button" data-icon="phone" data-iconshadow="false" data-shadow="false" data-corners="false" ></a>
+					<a href="#optionspanel" class="btn_riffle" title="Me öffnen" data-iconpos="notext" data-role="button" data-icon="riffle" data-iconshadow="false" data-shadow="false" data-corners="false"></a>
+				</div>
+			</div><!-- /header -->
+
+			<div data-role="content" class="content fullbg">
+				<ul id="dashboardmenu">
+					<li>
+						<a href="#reminder" class="reminder"><span data-icon="reminder" class="icon reminder"></span><span class="btn-text">Festtags-
+							Erinnerung</span></a>
+					</li>
+					<li>
+						<a href="#greetings" class="greeting"><span data-icon="greeting" class="icon greeting"></span><span class="btn-text">Grusskarte
+							versenden</span></a>
+					</li>
+					<li>
+						<a href="#kontakt" class="opening"><span data-icon="opening" class="icon opening"></span><span class="btn-text">Öffnungs&shy;zeiten</span></a>
+					</li>
+					<li>
+						<a href="#kontakt" class="contact"><span data-icon="contact" class="icon contact"></span><span class="btn-text">Kontakt</span></a>
+					</li>
+				</ul>
+
+			</div><!-- /content -->
+
+			<div data-role="footer"  data-id="tabmenu" data-position="fixed" data-tap-toggle="false">
+				<div data-role="navbar">
+					<ul>
+						<li>
+							<a href="#reminder" class="reminder" data-icon="reminder">Reminder</a>
+						</li>
+						<li>
+							<a href="#greetings" class="greeting" data-icon="greeting">Grußkarten</a>
+						</li>
+						<li>
+							<a href="#coupon" class="coupons" data-icon="coupon">Coupons</a>
+						</li>
+						<li>
+							<a href="#kontakt" class="contact" data-icon="contact">Kontakt</a>
+						</li>
+					</ul>
+				</div><!-- /navbar -->
+			</div><!-- /footer -->
+			<div data-role="panel" id="optionspanel" data-position="right" data-display="reveal" data-theme="b">
+				<ul class="optionmenu">
+					<li>
+						<a href="#kontakt" title="gehe zu Kontakt &amp; Öffnungszeiten" data-role="button" data-icon="rose" data-iconshadow="false" data-shadow="false" data-corners="false">Kontakt &amp; Öffnungszeiten</a>
+					</li>
+					<li>
+						<a href="#anfahrt" title="gehe zur Anfahrtsbeschreibung" data-role="button" data-icon="directions" data-iconshadow="false" data-shadow="false" data-corners="false">Ihr Weg zu uns</a>
+					</li>
+					<li>
+						<a href="#datenschutz" title="gehe zu Datenschutz" data-role="button" data-icon="privacy" data-iconshadow="false" data-shadow="false" data-corners="false">Datenschutz</a>
+					</li>
+					<li>
+						<a href="#impressum" title="gehe zum Impressum" data-role="button" data-icon="imprint" data-iconshadow="false" data-shadow="false" data-corners="false">Impressum</a>
+					</li>
+					<li>
+						<a href="mailto:info@schley.de" title="E-Mail an infp@schley.de schreiben" data-role="button" data-icon="mail" data-iconshadow="false" data-shadow="false" data-corners="false">info@schley.de</a>
+					</li>
+					<li>
+						<a href="tel:+49201289900" title="Rufen Sie uns an" data-role="button" data-icon="phone" data-iconshadow="false" data-shadow="false" data-corners="false">02 01/28 99 00</a>
+					</li>
+					<li>
+						<a href="http://www.schley.de" rel="external" target="_blank" title="gehe zur Website von Schley Essen" data-role="button" data-icon="www" data-iconshadow="false" data-shadow="false" data-corners="false">www.schley.de</a>
+					</li>
+					<li>
+						<a href="" title="Ausloggen" data-role="button" data-icon="logout" data-iconshadow="false" data-shadow="false" data-corners="false" onclick="logMeout()">Ausloggen</a>
+					</li>
+				</ul>
+			</div>
+		</div><!-- /page -->
+
+		<div data-role="page" class="ui-responsive-panel" id="offers">
+			<div data-role="header" class="ui-overlay-shadow" data-position="fixed" data-tap-toggle="false" data-id="schleyheader">
+				<a href="#dashboard" class="ui-btn-rose" data-iconpos="notext" data-role="button" data-icon="rose-m-back" data-iconshadow="false" data-shadow="false" data-corners="false" title="einen Schritt zurück"></a>
+				<h1>Angebot von Schley</h1>
+				<div class="ui-btn-right">
+					<a href="tel:+49201289900" class="btn_phone tablet-hide" title="Jetzt anrufen" data-iconpos="notext" data-role="button" data-icon="phone" data-iconshadow="false" data-shadow="false" data-corners="false" ></a>
+					<a href="#optionspanel" class="btn_riffle" title="Menü öffnen" data-iconpos="notext" data-role="button" data-icon="riffle" data-iconshadow="false" data-shadow="false" data-corners="false"></a>
+				</div>
+			</div><!-- /header -->
+
+			<div data-role="content">
+				<p>
+					Angebote sind hier
+				</p>
+			</div><!-- /content -->
+
+			<div data-role="footer" data-tap-toggle="false"  data-id="tabmenu" data-position="fixed">
+				<div data-role="navbar" id="navbar">
+					<ul>
+						<li>
+							<a href="#reminder" class="reminder" data-icon="reminder">Reminder</a>
+						</li>
+						<li>
+							<a href="#greetings" class="greeting" data-icon="greeting">Grußkarten</a>
+						</li>
+						<li>
+							<a href="#coupon" class="coupons" data-icon="coupon">Coupons</a>
+						</li>
+						<li>
+							<a href="#kontakt" class="contact" data-icon="contact">Kontakt</a>
+						</li>
+					</ul>
+				</div><!-- /navbar -->
+			</div><!-- /footer -->
+			<div data-role="panel" id="optionspanel" data-position="right" data-display="reveal">
+				<ul class="optionmenu">
+					<li>
+						<a href="#kontakt" title="gehe zu Kontakt &amp; Öffnungszeiten" data-role="button" data-icon="rose" data-iconshadow="false" data-shadow="false" data-corners="false">Kontakt &amp; Öffnungszeiten</a>
+					</li>
+					<li>
+						<a href="#anfahrt" title="gehe zur Anfahrtsbeschreibung" data-role="button" data-icon="directions" data-iconshadow="false" data-shadow="false" data-corners="false">Ihr Weg zu uns</a>
+					</li>
+					<li>
+						<a href="#datenschutz" title="gehe zu Datenschutz" data-role="button" data-icon="privacy" data-iconshadow="false" data-shadow="false" data-corners="false">Datenschutz</a>
+					</li>
+					<li>
+						<a href="#impressum" title="gehe zum Impressum" data-role="button" data-icon="imprint" data-iconshadow="false" data-shadow="false" data-corners="false">Impressum</a>
+					</li>
+					<li>
+						<a href="mailto:info@schley.de" title="E-Mail an infp@schley.de schreiben" data-role="button" data-icon="mail" data-iconshadow="false" data-shadow="false" data-corners="false">info@schley.de</a>
+					</li>
+					<li>
+						<a href="tel:+49201289900" title="Rufen Sie uns an" data-role="button" data-icon="phone" data-iconshadow="false" data-shadow="false" data-corners="false">02 01/28 99 00</a>
+					</li>
+					<li>
+						<a href="http://www.schley.de" rel="external" target="_blank" title="gehe zur Website von Schley Essen" data-role="button" data-icon="www" data-iconshadow="false" data-shadow="false" data-corners="false">www.schley.de</a>
+					</li>
+					<li>
+						<a href="" title="Ausloggen" data-role="button" data-icon="logout" data-iconshadow="false" data-shadow="false" data-corners="false" onclick="logMeout()">Ausloggen</a>
+					</li>
+				</ul>
+			</div>
+		</div><!-- /page -->
+
+		<div data-role="page" class="ui-responsive-panel" id="anfahrt" data-tap-toggle="false">
+			<div data-role="header" class="ui-overlay-shadow" data-position="fixed" data-tap-toggle="false" data-id="schleyheader">
+				<a href="#dashboard" class="ui-btn-rose" data-iconpos="notext" data-role="button" data-icon="rose-m-back" data-iconshadow="false" data-shadow="false" data-corners="false" title="einen Schritt zurück"></a>
+				<h1>Ihr Weg zu uns</h1>
+				<div class="ui-btn-right">
+					<a href="tel:+49201289900" class="btn_phone tablet-hide" title="Jetzt anrufen" data-iconpos="notext" data-role="button" data-icon="phone" data-iconshadow="false" data-shadow="false" data-corners="false" ></a>
+					<a href="#optionspanel" class="btn_riffle" title="Menü öffnen" data-iconpos="notext" data-role="button" data-icon="riffle" data-iconshadow="false" data-shadow="false" data-corners="false"></a>
+				</div>
+			</div><!-- /header -->
+
+			<div data-role="content">
+                <div class="ui-grid-a ui-responsive">
+                    <div class="ui-block-a">
+                        <div id="map_canvas"></div>
+                    </div>
+                    <div class="ui-block-b">
+                        <div class="directionsandform">
+                            
+                            <form class="directionsForm centered">
+                                <h2 style="margin-top: 0.5em;margin-bottom: 0.5em">Route planen</h2>
+                                <div data-role="fieldcontain" class="ui-hide-label">
+                                    <label for="from" class="ui-hidden-accessible">Von</label>
+                                    <input type="text" id="from" value="" placeholder="Ihr Startpunkt" required/>
+                                </div>
+                                <input type="hidden" id="to" value="Schley's Blumenparadies Lilienthalstrasse 30 Essen">
+                                <p>
+                                    <strong>Ihr Ziel: </strong>Schley's Blumenparadies Lilienthalstrasse 30 Essen
+                                </p>
+                                <input type="hidden" name="select-choice-0" id="mode" value="DRIVING" />
+                                <a data-icon="search" data-role="button" href="#" id="calcRouteBtn" class="ui-submit">Route berechnen</a>
+                            </form>
+        
+                            <div id="results" style="display:none;">
+                                <h1 class='header centered'>Ihre Route zu Schley's Blumenparadies</h1>
+                                <div id="directions"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				
+				
+			</div>
+
+			<div data-role="footer" data-id="tabmenu" data-position="fixed" data-tap-toggle="false"	>
+				<div data-role="navbar" id="navbar">
+					<ul>
+						<li>
+							<a href="#reminder" class="reminder" data-icon="reminder">Reminder</a>
+						</li>
+						<li>
+							<a href="#greetings" class="greeting" data-icon="greeting">Grußkarten</a>
+						</li>
+						<li>
+							<a href="#coupon" class="coupons" data-icon="coupon">Coupons</a>
+						</li>
+						<li>
+							<a href="#kontakt" class="contact" data-icon="contact">Kontakt</a>
+						</li>
+					</ul>
+				</div><!-- /navbar -->
+			</div><!-- /footer -->
+			<div data-role="panel" id="optionspanel" data-position="right" data-display="reveal">
+				<ul class="optionmenu">
+					<li>
+						<a href="#kontakt" title="gehe zu Kontakt &amp; Öffnungszeiten" data-role="button" data-icon="rose" data-iconshadow="false" data-shadow="false" data-corners="false">Kontakt &amp; Öffnungszeiten</a>
+					</li>
+					<li>
+						<a href="#anfahrt" title="gehe zur Anfahrtsbeschreibung" data-role="button" data-icon="directions" data-iconshadow="false" data-shadow="false" data-corners="false" class="current">Ihr Weg zu uns</a>
+					</li>
+					<li>
+						<a href="#datenschutz" title="gehe zu Datenschutz" data-role="button" data-icon="privacy" data-iconshadow="false" data-shadow="false" data-corners="false">Datenschutz</a>
+					</li>
+					<li>
+						<a href="#impressum" title="gehe zum Impressum" data-role="button" data-icon="imprint" data-iconshadow="false" data-shadow="false" data-corners="false">Impressum</a>
+					</li>
+					<li>
+						<a href="mailto:info@schley.de" title="E-Mail an infp@schley.de schreiben" data-role="button" data-icon="mail" data-iconshadow="false" data-shadow="false" data-corners="false">info@schley.de</a>
+					</li>
+					<li>
+						<a href="tel:+49201289900" title="Rufen Sie uns an" data-role="button" data-icon="phone" data-iconshadow="false" data-shadow="false" data-corners="false">02 01/28 99 00</a>
+					</li>
+					<li>
+						<a href="http://www.schley.de" rel="external" target="_blank" title="gehe zur Website von Schley Essen" data-role="button" data-icon="www" data-iconshadow="false" data-shadow="false" data-corners="false">www.schley.de</a>
+					</li>
+					<li>
+						<a href="" title="Ausloggen" data-role="button" data-icon="logout" data-iconshadow="false" data-shadow="false" data-corners="false" onclick="logMeout()">Ausloggen</a>
+					</li>
+				</ul>
+			</div>
+		</div><!-- /page -->
+
+		<div data-role="page" class="ui-responsive-panel" id="gifts">
+			<div data-role="header" class="ui-overlay-shadow" data-position="fixed" data-tap-toggle="false" data-id="schleyheader">
+				<a href="#dashboard" class="ui-btn-rose" data-iconpos="notext" data-role="button" data-icon="rose-m-back" data-iconshadow="false" data-shadow="false" data-corners="false" title="einen Schritt zurück"></a>
+				<h1>Geschenke</h1>
+				<div class="ui-btn-right">
+					<a href="tel:+49201289900" class="btn_phone tablet-hide" title="Jetzt anrufen" data-iconpos="notext" data-role="button" data-icon="phone" data-iconshadow="false" data-shadow="false" data-corners="false" ></a>
+					<a href="#optionspanel" class="btn_riffle" title="Menü öffnen" data-iconpos="notext" data-role="button" data-icon="riffle" data-iconshadow="false" data-shadow="false" data-corners="false"></a>
+				</div>
+			</div><!-- /header -->
+
+			<div data-role="content">
+
+				<p>
+					Eine Auswahl von schönen Geschenkideen zeigen wir Ihnen hier. Jedes Produkt gibt es in unterschiedlichen Größen, Farben und Zusammenstellungen. Schauen Sie doch bei uns vorbei und suchen Sie sich das passende Geschenk aus.
+				</p>
+				<div class="ui-grid-c">
+					<div class="ui-block-a">
+						<a href="#kontakt" title="gehe zur Seite Kontakt"><img src="img/geschenkideen001.jpg" alt="Geschenkidee" /></a>
+					</div>
+					<div class="ui-block-b">
+						<a href="#kontakt" title="gehe zur Seite Kontakt"><img src="img/geschenkideen002.jpg" alt="Geschenkidee" /></a>
+					</div>
+					<div class="ui-block-c">
+						<a href="#kontakt" title="gehe zur Seite Kontakt"><img src="img/geschenkideen003.jpg" alt="Geschenkidee" /></a>
+					</div>
+				</div><!-- /grid-b -->
+				<div class="ui-grid-c">
+					<div class="ui-block-a">
+						<a href="#kontakt" title="gehe zur Seite Kontakt"><img src="img/geschenkideen004.jpg" alt="Geschenkidee" /></a>
+					</div>
+					<div class="ui-block-b">
+						<a href="#kontakt" title="gehe zur Seite Kontakt"><img src="img/geschenkideen005.jpg" alt="Geschenkidee" /></a>
+					</div>
+				</div><!-- /grid-b -->
+			</div><!-- /content -->
+
+			<div data-role="footer" data-tap-toggle="false"  data-id="tabmenu" data-position="fixed">
+				<div data-role="navbar" id="navbar">
+					<ul>
+						<li>
+							<a href="#reminder" class="reminder" data-icon="reminder">Reminder</a>
+						</li>
+						<li>
+							<a href="#greetings" class="greeting" data-icon="greeting">Grußkarten</a>
+						</li>
+						<li>
+							<a href="#coupon" class="coupons" data-icon="coupon">Coupons</a>
+						</li>
+						<li>
+							<a href="#kontakt" class="contact" data-icon="contact">Kontakt</a>
+						</li>
+					</ul>
+				</div><!-- /navbar -->
+			</div><!-- /footer -->
+			<div data-role="panel" id="optionspanel" data-position="right" data-display="reveal">
+				<ul class="optionmenu">
+					<li>
+						<a href="#kontakt" title="gehe zu Kontakt &amp; Öffnungszeiten" data-role="button" data-icon="rose" data-iconshadow="false" data-shadow="false" data-corners="false">Kontakt &amp; Öffnungszeiten</a>
+					</li>
+					<li>
+						<a href="#anfahrt" title="gehe zur Anfahrtsbeschreibung" data-role="button" data-icon="directions" data-iconshadow="false" data-shadow="false" data-corners="false">Ihr Weg zu uns</a>
+					</li>
+					<li>
+						<a href="#datenschutz" title="gehe zu Datenschutz" data-role="button" data-icon="privacy" data-iconshadow="false" data-shadow="false" data-corners="false">Datenschutz</a>
+					</li>
+					<li>
+						<a href="#impressum" title="gehe zum Impressum" data-role="button" data-icon="imprint" data-iconshadow="false" data-shadow="false" data-corners="false">Impressum</a>
+					</li>
+					<li>
+						<a href="mailto:info@schley.de" title="E-Mail an infp@schley.de schreiben" data-role="button" data-icon="mail" data-iconshadow="false" data-shadow="false" data-corners="false">info@schley.de</a>
+					</li>
+					<li>
+						<a href="tel:+49201289900" title="Rufen Sie uns an" data-role="button" data-icon="phone" data-iconshadow="false" data-shadow="false" data-corners="false">02 01/28 99 00</a>
+					</li>
+					<li>
+						<a href="http://www.schley.de" rel="external" target="_blank" title="gehe zur Website von Schley Essen" data-role="button" data-icon="www" data-iconshadow="false" data-shadow="false" data-corners="false">www.schley.de</a>
+					</li>
+					<li>
+						<a href="" title="Ausloggen" data-role="button" data-icon="logout" data-iconshadow="false" data-shadow="false" data-corners="false" onclick="logMeout()">Ausloggen</a>
+					</li>
+				</ul>
+			</div>
+		</div><!-- /page -->
+
+		<div data-role="page" class="ui-responsive-panel" id="voucher">
+			<div data-role="header" class="ui-overlay-shadow" data-position="fixed" data-tap-toggle="false" data-id="schleyheader">
+				<a href="#dashboard" class="ui-btn-rose" data-iconpos="notext" data-role="button" data-icon="rose-m-back" data-iconshadow="false" data-shadow="false" data-corners="false" title="einen Schritt zurück"></a>
+				<h1>Geschenkgutschein</h1>
+				<div class="ui-btn-right">
+					<a href="tel:+49201289900" class="btn_phone tablet-hide" title="Jetzt anrufen" data-iconpos="notext" data-role="button" data-icon="phone" data-iconshadow="false" data-shadow="false" data-corners="false" ></a>
+					<a href="#optionspanel" class="btn_riffle" title="Menü öffnen" data-iconpos="notext" data-role="button" data-icon="riffle" data-iconshadow="false" data-shadow="false" data-corners="false"></a>
+				</div>
+			</div><!-- /header -->
+
+			<div data-role="content">
+				<p>
+					Gutscheine folgen in der nächsten Version. Dieser Menüpunkt wird in der ersten Version ausgeblendet.
+				</p>
+			</div><!-- /content -->
+
+			<div data-role="footer" data-tap-toggle="false"  data-id="tabmenu" data-position="fixed">
+				<div data-role="navbar" id="navbar">
+					<ul>
+						<li>
+							<a href="#reminder" class="reminder" data-icon="reminder">Reminder</a>
+						</li>
+						<li>
+							<a href="#greetings" class="greeting" data-icon="greeting">Grußkarten</a>
+						</li>
+						<li>
+							<a href="#coupon" class="coupons" data-icon="coupon">Coupons</a>
+						</li>
+						<li>
+							<a href="#kontakt" class="contact" data-icon="contact">Kontakt</a>
+						</li>
+					</ul>
+				</div><!-- /navbar -->
+			</div><!-- /footer -->
+			<div data-role="panel" id="optionspanel" data-position="right" data-display="reveal">
+				<ul class="optionmenu">
+					<li>
+						<a href="#kontakt" title="gehe zu Kontakt &amp; Öffnungszeiten" data-role="button" data-icon="rose" data-iconshadow="false" data-shadow="false" data-corners="false">Kontakt &amp; Öffnungszeiten</a>
+					</li>
+					<li>
+						<a href="#anfahrt" title="gehe zur Anfahrtsbeschreibung" data-role="button" data-icon="directions" data-iconshadow="false" data-shadow="false" data-corners="false">Ihr Weg zu uns</a>
+					</li>
+					<li>
+						<a href="#datenschutz" title="gehe zu Datenschutz" data-role="button" data-icon="privacy" data-iconshadow="false" data-shadow="false" data-corners="false">Datenschutz</a>
+					</li>
+					<li>
+						<a href="#impressum" title="gehe zum Impressum" data-role="button" data-icon="imprint" data-iconshadow="false" data-shadow="false" data-corners="false">Impressum</a>
+					</li>
+					<li>
+						<a href="mailto:info@schley.de" title="E-Mail an infp@schley.de schreiben" data-role="button" data-icon="mail" data-iconshadow="false" data-shadow="false" data-corners="false">info@schley.de</a>
+					</li>
+					<li>
+						<a href="tel:+49201289900" title="Rufen Sie uns an" data-role="button" data-icon="phone" data-iconshadow="false" data-shadow="false" data-corners="false">02 01/28 99 00</a>
+					</li>
+					<li>
+						<a href="http://www.schley.de" rel="external" target="_blank" title="gehe zur Website von Schley Essen" data-role="button" data-icon="www" data-iconshadow="false" data-shadow="false" data-corners="false">www.schley.de</a>
+					</li>
+					<li>
+						<a href="" title="Ausloggen" data-role="button" data-icon="logout" data-iconshadow="false" data-shadow="false" data-corners="false" onclick="logMeout()">Ausloggen</a>
+					</li>
+				</ul>
+			</div>
+		</div><!-- /page -->
+
+		<div data-role="page" class="ui-responsive-panel" id="coupon">
+			<div data-role="header" class="ui-overlay-shadow" data-position="fixed" data-tap-toggle="false" data-id="schleyheader">
+				<a href="#dashboard" class="ui-btn-rose" data-iconpos="notext" data-role="button" data-icon="rose-m-back" data-iconshadow="false" data-shadow="false" data-corners="false" title="einen Schritt zurück"></a>
+				<h1>Coupons</h1>
+				<div class="ui-btn-right">
+					<a href="tel:+49201289900" class="btn_phone tablet-hide" title="Jetzt anrufen" data-iconpos="notext" data-role="button" data-icon="phone" data-iconshadow="false" data-shadow="false" data-corners="false" ></a>
+					<a href="#optionspanel" class="btn_riffle" title="Menü öffnen" data-iconpos="notext" data-role="button" data-icon="riffle" data-iconshadow="false" data-shadow="false" data-corners="false"></a>
+				</div>
+			</div><!-- /header -->
+
+			<div data-role="content" class="centered">
+				<img src="img/coupon_icon.gif" alt="schley coupon icon" class="centered" />
+				<div class="centeredmsg">
+                    <h2 class="centered">Schley Coupons</h2>
+                    <p>
+                        Schley Coupon. Abholen und bei uns vor Ort einlösen.
+                    </p>
+                    <a id="schleycoupon_btn" href="#couponform" class="btn autowidth">
+                        <i class="fa fa-chevron-circle-right pull-right"></i><span class="label">Jetzt Schley Coupon sichern</span>
+                    </a>
+                </div>
+			</div><!-- /content -->
+
+			<div data-role="footer" data-tap-toggle="false"  data-id="tabmenu" data-position="fixed">
+				<div data-role="navbar" id="navbar">
+					<ul>
+						<li>
+							<a href="#reminder" class="reminder" data-icon="reminder">Reminder</a>
+						</li>
+						<li>
+							<a href="#greetings" class="greeting" data-icon="greeting">Grußkarten</a>
+						</li>
+						<li>
+							<a href="#coupon" class="coupons ui-state-persist" data-icon="coupon">Coupons</a>
+						</li>
+						<li>
+							<a href="#kontakt" class="contact" data-icon="contact">Kontakt</a>
+						</li>
+					</ul>
+				</div><!-- /navbar -->
+			</div><!-- /footer -->
+			<div data-role="panel" id="optionspanel" data-position="right" data-display="reveal">
+				<ul class="optionmenu">
+					<li>
+						<a href="#kontakt" title="gehe zu Kontakt &amp; Öffnungszeiten" data-role="button" data-icon="rose" data-iconshadow="false" data-shadow="false" data-corners="false">Kontakt &amp; Öffnungszeiten</a>
+					</li>
+					<li>
+						<a href="#anfahrt" title="gehe zur Anfahrtsbeschreibung" data-role="button" data-icon="directions" data-iconshadow="false" data-shadow="false" data-corners="false">Ihr Weg zu uns</a>
+					</li>
+					<li>
+						<a href="#datenschutz" title="gehe zu Datenschutz" data-role="button" data-icon="privacy" data-iconshadow="false" data-shadow="false" data-corners="false">Datenschutz</a>
+					</li>
+					<li>
+						<a href="#impressum" title="gehe zum Impressum" data-role="button" data-icon="imprint" data-iconshadow="false" data-shadow="false" data-corners="false">Impressum</a>
+					</li>
+					<li>
+						<a href="mailto:info@schley.de" title="E-Mail an infp@schley.de schreiben" data-role="button" data-icon="mail" data-iconshadow="false" data-shadow="false" data-corners="false">info@schley.de</a>
+					</li>
+					<li>
+						<a href="tel:+49201289900" title="Rufen Sie uns an" data-role="button" data-icon="phone" data-iconshadow="false" data-shadow="false" data-corners="false">02 01/28 99 00</a>
+					</li>
+					<li>
+						<a href="http://www.schley.de" rel="external" target="_blank" title="gehe zur Website von Schley Essen" data-role="button" data-icon="www" data-iconshadow="false" data-shadow="false" data-corners="false">www.schley.de</a>
+					</li>
+					<li>
+						<a href="" title="Ausloggen" data-role="button" data-icon="logout" data-iconshadow="false" data-shadow="false" data-corners="false" onclick="logMeout()">Ausloggen</a>
+					</li>
+				</ul>
+			</div>
+		</div><!-- /page -->
+
+		<div data-role="page" class="ui-responsive-panel" id="couponform">
+			<div data-role="header" class="ui-overlay-shadow" data-position="fixed" data-tap-toggle="false" data-id="schleyheader">
+				<a href="#coupon" class="ui-btn-rose" data-iconpos="notext" data-role="button" data-icon="rose-m-back" data-iconshadow="false" data-shadow="false" data-corners="false" title="einen Schritt zurück"></a>
+				<h1>Schley Coupons</h1>
+				<div class="ui-btn-right">
+					<a href="tel:+49201289900" class="btn_phone tablet-hide" title="Jetzt anrufen" data-iconpos="notext" data-role="button" data-icon="phone" data-iconshadow="false" data-shadow="false" data-corners="false" ></a>
+					<a href="#optionspanel" class="btn_riffle" title="Menü öffnen" data-iconpos="notext" data-role="button" data-icon="riffle" data-iconshadow="false" data-shadow="false" data-corners="false"></a>
+				</div>
+			</div><!-- /header -->
+
+			<div data-role="content">
+				<h2 class="centered">Ihre Daten</h2>
+				<p class="centered">
+					Geben Sie Ihre Daten ein und einen um Ihren persönlichen Einkaufs- und Kaffeegutschein zu erhalten.
+				</p>
+
+				<div>
+					<!-- coupon form begin -->
+
+					<form id="couponformular" data-ajax="false">
+						<div class="ui-grid-a grid5050 ui-responsive">
+							<div class="ui-block-a">
+								<div data-role="fieldcontain" class="ui-hide-label">
+									<label for="cp_firstname" class="ui-hidden-accessible">Vorname:</label>
+									<input type="text" name="cp_firstname" id="cp_firstname" value="" placeholder="Vorname" required/>
+								</div>
+							</div>
+							<div class="ui-block-b">
+								<div data-role="fieldcontain" class="ui-hide-label">
+									<label for="cp_lastname" class="ui-hidden-accessible">Nachname:</label>
+									<input type="text" name="cp_lastname" id="cp_lastname" value="" placeholder="Nachname" required/>
+								</div>
+							</div>
+						</div>
+
+						<div class="ui-grid-a ui-responsive grid7525">
+							<div class="ui-block-a">
+								<div data-role="fieldcontain" class="ui-hide-label">
+									<label for="cp_street" class="ui-hidden-accessible">Straße:</label>
+									<input type="text" name="cp_street" id="cp_street" value="" placeholder="Straße" required/>
+								</div>
+							</div>
+							<div class="ui-block-b">
+								<div data-role="fieldcontain" class="ui-hide-label">
+									<label for="cp_streetno" class="ui-hidden-accessible">Nr.:</label>
+									<input type="number" name="cp_streetno" id="cp_streetno" value="" placeholder="Nr." required/>
+								</div>
+							</div>
+						</div>
+
+						<div class="ui-grid-a ui-responsive grid4060">
+							<div class="ui-block-a">
+								<div data-role="fieldcontain" class="ui-hide-label">
+									<label for="cp_postalcode" class="ui-hidden-accessible">PLZ:</label>
+									<input type="number" name="cp_postalcode" id="cp_postalcode" value="" placeholder="PLZ" required/>
+								</div>
+							</div>
+							<div class="ui-block-b">
+								<div data-role="fieldcontain" class="ui-hide-label">
+									<label for="cp_city" class="ui-hidden-accessible">Ort:</label>
+									<input type="text" name="cp_city" id="cp_city" value="" placeholder="Ort" required/>
+								</div>
+							</div>
+						</div>
+
+                        <div data-role="fieldcontain" class="ui-hide-label">
+                            <label for="cp_mail" class="ui-hidden-accessible">E-Mail:</label>
+                            <input type="email" name="cp_mail" id="cp_mail" value="info@oliverkierepka.de" readonly="readonly" pattern="[^ @]*@[^ @]*" />
+                        </div>
+						
+						<div data-role="fieldcontain" class="ui-hide-label" >
+							<fieldset data-role="controlgroup">
+
+								<label for="cp_privacypolicy">Ich habe die Datenschutz-bedinungen gelesen und akzeptieren diese.
+									<input type="checkbox" name="cp_privacypolicy" id="cp_privacypolicy" required='required' />
+								</label>
+								<a href="#datenschutz" title="gehe zur Seite Datenschutz" class="centered">Datenschutzbestimmungen</a>
+							</fieldset>
+						</div>
+
+						<small><span class="lightgreen">*</span> Wir verwenden Ihre Angaben ausschließlich für eigene Werbezwecke.</small>
+						<input type="submit" data-corners="false" name="submit" id="submit3" value="Coupon erhalten">
+
+					</form>
+
+					<!-- coupon form end -->
+				</div>
+			</div><!-- /content -->
+
+			<div data-role="panel" id="optionspanel" data-position="right" data-display="reveal">
+				<ul class="optionmenu">
+					<li>
+						<a href="#kontakt" title="gehe zu Kontakt &amp; Öffnungszeiten" data-role="button" data-icon="rose" data-iconshadow="false" data-shadow="false" data-corners="false">Kontakt &amp; Öffnungszeiten</a>
+					</li>
+					<li>
+						<a href="#anfahrt" title="gehe zur Anfahrtsbeschreibung" data-role="button" data-icon="directions" data-iconshadow="false" data-shadow="false" data-corners="false">Ihr Weg zu uns</a>
+					</li>
+					<li>
+						<a href="#datenschutz" title="gehe zu Datenschutz" data-role="button" data-icon="privacy" data-iconshadow="false" data-shadow="false" data-corners="false">Datenschutz</a>
+					</li>
+					<li>
+						<a href="#impressum" title="gehe zum Impressum" data-role="button" data-icon="imprint" data-iconshadow="false" data-shadow="false" data-corners="false">Impressum</a>
+					</li>
+					<li>
+						<a href="mailto:info@schley.de" title="E-Mail an infp@schley.de schreiben" data-role="button" data-icon="mail" data-iconshadow="false" data-shadow="false" data-corners="false">info@schley.de</a>
+					</li>
+					<li>
+						<a href="tel:+49201289900" title="Rufen Sie uns an" data-role="button" data-icon="phone" data-iconshadow="false" data-shadow="false" data-corners="false">02 01/28 99 00</a>
+					</li>
+					<li>
+						<a href="http://www.schley.de" rel="external" target="_blank" title="gehe zur Website von Schley Essen" data-role="button" data-icon="www" data-iconshadow="false" data-shadow="false" data-corners="false">www.schley.de</a>
+					</li>
+					<li>
+						<a href="" title="Ausloggen" data-role="button" data-icon="logout" data-iconshadow="false" data-shadow="false" data-corners="false" onclick="logMeout()">Ausloggen</a>
+					</li>
+				</ul>
+			</div>
+		</div><!-- /page -->
+
+		<div data-role="page" class="ui-responsive-panel" id="aktuellercoupon">
+			<div data-role="header" class="ui-overlay-shadow" data-position="fixed" data-tap-toggle="false" data-id="schleyheader">
+				<a href="#coupon" class="ui-btn-rose" data-iconpos="notext" data-role="button" data-icon="rose-m-back" data-iconshadow="false" data-shadow="false" data-corners="false" title="einen Schritt zurück" data-transition="pop" data-direction="reverse">&nbsp;</a>
+				<h1>Schley Coupons</h1>
+				<div class="ui-btn-right">
+					<a href="tel:+49201289900" class="btn_phone tablet-hide" title="Jetzt anrufen" data-iconpos="notext" data-role="button" data-icon="phone" data-iconshadow="false" data-shadow="false" data-corners="false" ></a>
+					<a href="#optionspanel" class="btn_riffle" title="Menü öffnen" data-iconpos="notext" data-role="button" data-icon="riffle" data-iconshadow="false" data-shadow="false" data-corners="false"></a>
+				</div>
+			</div><!-- /header -->
+
+			<div data-role="content">
+
+			</div><!-- /content -->
+
+			<div data-role="panel" id="optionspanel" data-position="right" data-display="reveal">
+				<ul class="optionmenu">
+					<li>
+						<a href="#kontakt" title="gehe zu Kontakt &amp; Öffnungszeiten" data-role="button" data-icon="rose" data-iconshadow="false" data-shadow="false" data-corners="false">Kontakt &amp; Öffnungszeiten</a>
+					</li>
+					<li>
+						<a href="#anfahrt" title="gehe zur Anfahrtsbeschreibung" data-role="button" data-icon="directions" data-iconshadow="false" data-shadow="false" data-corners="false">Ihr Weg zu uns</a>
+					</li>
+					<li>
+						<a href="#datenschutz" title="gehe zu Datenschutz" data-role="button" data-icon="privacy" data-iconshadow="false" data-shadow="false" data-corners="false">Datenschutz</a>
+					</li>
+					<li>
+						<a href="#impressum" title="gehe zum Impressum" data-role="button" data-icon="imprint" data-iconshadow="false" data-shadow="false" data-corners="false">Impressum</a>
+					</li>
+					<li>
+						<a href="mailto:info@schley.de" title="E-Mail an infp@schley.de schreiben" data-role="button" data-icon="mail" data-iconshadow="false" data-shadow="false" data-corners="false">info@schley.de</a>
+					</li>
+					<li>
+						<a href="tel:+49201289900" title="Rufen Sie uns an" data-role="button" data-icon="phone" data-iconshadow="false" data-shadow="false" data-corners="false">02 01/28 99 00</a>
+					</li>
+					<li>
+						<a href="http://www.schley.de" rel="external" target="_blank" title="gehe zur Website von Schley Essen" data-role="button" data-icon="www" data-iconshadow="false" data-shadow="false" data-corners="false">www.schley.de</a>
+					</li>
+					<li>
+						<a href="" title="Ausloggen" data-role="button" data-icon="logout" data-iconshadow="false" data-shadow="false" data-corners="false" onclick="logMeout()">Ausloggen</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div data-role="page" class="ui-responsive-panel" id="greetings">
+			<div data-role="header" class="ui-overlay-shadow" data-position="fixed" data-tap-toggle="false" data-id="schleyheader">
+				<a href="#dashboard" class="ui-btn-rose" data-iconpos="notext" data-role="button" data-icon="rose-m-back" data-iconshadow="false" data-shadow="false" data-corners="false" title="einen Schritt zurück"></a>
+				<h1>Grusskarten</h1>
+				<div class="ui-btn-right">
+					<a href="tel:+49201289900" class="btn_phone tablet-hide" title="Jetzt anrufen" data-iconpos="notext" data-role="button" data-icon="phone" data-iconshadow="false" data-shadow="false" data-corners="false" ></a>
+					<a href="#optionspanel" class="btn_riffle" title="Menü öffnen" data-iconpos="notext" data-role="button" data-icon="riffle" data-iconshadow="false" data-shadow="false" data-corners="false"></a>
+				</div>
+			</div><!-- /header -->
+
+			<div data-role="content">
+				<form id="greetingsformular" method="post" data-ajax="false" class="centered" >
+					<h2>Jetzt Grußkarte versenden</h2>
+				<p>Wählen Sie eines der Motive aus und versenden Sie Freude.</p>
+			
+                    <input type="hidden" id="ecard" name="ecard" value="grusskarte01" />
+					<div id="greetingcards">
+						<!--First Slide-->
+						<div class="item">
+							<img src="img/grusskarten/grusskarte01.jpg" alt="Grußkarte mit Blumenmotiv" />
+						</div>
+
+						<!--Second Slide-->
+						<div class="item">
+							<img src="img/grusskarten/grusskarte02.jpg" alt="Grußkarte mit Blumenmotiv" />
+						</div>
+
+						<!--Third Slide-->
+						<div class="item">
+							<img src="img/grusskarten/grusskarte03.jpg" alt="Grußkarte mit Blumenmotiv" />
+						</div>
+
+						<!--Fourth Slide-->
+						<div class="item">
+							<img src="img/grusskarten/grusskarte04.jpg" alt="Grußkarte mit Blumenmotiv" />
+						</div>
+					</div>
+					<div class="ui-grid-a ui-responsive special">
+						<div class="ui-block-a">
+							<div data-role="fieldcontain" class="ui-hide-label">
+								<label for="reciever_m" class="ui-hidden-accessible">E-Mailadresse des Empfängers:</label>
+								<input type="email" name="reciever_m" id="reciever_m" value="" placeholder="E-Mail des Empfängers" required />
+							</div>
+						</div>
+						<div class="ui-block-b">
+							<div data-role="fieldcontain" class="ui-hide-label">
+								<label for="sender_m" class="ui-hidden-accessible">Ihre E-Mailadresse:</label>
+								<input type="email" name="sender_m" id="sender_m" value="" placeholder="Ihre E-Mailadresse" required />
+							</div>
+						</div>
+					</div>
+						<div data-role="fieldcontain" class="ui-hide-label greetingtextfield">
+							<label for="greetingtext" class="ui-hidden-accessible">Ihr Grußtext:</label>
+							<textarea name="greetingtext" id="greetingtext" placeholder="Ihr Grußtext" required ></textarea>
+						</div>
+							<div data-role="fieldcontain" class="ui-hide-label">
+								<fieldset data-role="controlgroup">
+									<legend>
+										Ich habe die <a href="#datenschutz" title="gehe zur Seite Datenschutz">Datenschutzbedinungen</a> gelesen und akzeptieren diese.
+									</legend>
+									<input type="checkbox" name="privacypolicy" id="privacypolicy" class="custom" required />
+									<label for="privacypolicy">Ich habe die Datenschutzbedinungen gelesen und akzeptieren diese.</label>
+								</fieldset>
+								<a href="#datenschutz" title="gehe zur Seite Datenschutz">Datenschutzbestimmungen</a>
+							</div>
+                    <a id="greetingsButton" href="" class="btn">
+                            <i class="fa fa-chevron-circle-right pull-right"></i><span class="label">Grußkarte senden</span>
+                        </a>
+				</form>
+			</div><!-- /content -->
+
+			<div data-role="footer" data-tap-toggle="false"  data-id="tabmenu" data-position="fixed">
+				<div data-role="navbar" id="navbar">
+					<ul>
+						<li>
+							<a href="#reminder" class="reminder" data-icon="reminder">Reminder</a>
+						</li>
+						<li>
+							<a href="#greetings" class="greeting ui-state-persist" data-icon="greeting">Grußkarten</a>
+						</li>
+						<li>
+							<a href="#coupon" class="coupons" data-icon="coupon">Coupons</a>
+						</li>
+						<li>
+							<a href="#kontakt" class="contact" data-icon="contact">Kontakt</a>
+						</li>
+					</ul>
+				</div><!-- /navbar -->
+			</div><!-- /footer -->
+			<div data-role="panel" id="optionspanel" data-position="right" data-display="reveal">
+				<ul class="optionmenu">
+					<li>
+						<a href="#kontakt" title="gehe zu Kontakt &amp; Öffnungszeiten" data-role="button" data-icon="rose" data-iconshadow="false" data-shadow="false" data-corners="false">Kontakt &amp; Öffnungszeiten</a>
+					</li>
+					<li>
+						<a href="#anfahrt" title="gehe zur Anfahrtsbeschreibung" data-role="button" data-icon="directions" data-iconshadow="false" data-shadow="false" data-corners="false">Ihr Weg zu uns</a>
+					</li>
+					<li>
+						<a href="#datenschutz" title="gehe zu Datenschutz" data-role="button" data-icon="privacy" data-iconshadow="false" data-shadow="false" data-corners="false">Datenschutz</a>
+					</li>
+					<li>
+						<a href="#impressum" title="gehe zum Impressum" data-role="button" data-icon="imprint" data-iconshadow="false" data-shadow="false" data-corners="false">Impressum</a>
+					</li>
+					<li>
+						<a href="mailto:info@schley.de" title="E-Mail an infp@schley.de schreiben" data-role="button" data-icon="mail" data-iconshadow="false" data-shadow="false" data-corners="false">info@schley.de</a>
+					</li>
+					<li>
+						<a href="tel:+49201289900" title="Rufen Sie uns an" data-role="button" data-icon="phone" data-iconshadow="false" data-shadow="false" data-corners="false">02 01/28 99 00</a>
+					</li>
+					<li>
+						<a href="http://www.schley.de" rel="external" target="_blank" title="gehe zur Website von Schley Essen" data-role="button" data-icon="www" data-iconshadow="false" data-shadow="false" data-corners="false">www.schley.de</a>
+					</li>
+					
+					<li>
+						<a href="" title="Ausloggen" data-role="button" data-icon="logout" data-iconshadow="false" data-shadow="false" data-corners="false" onclick="logMeout()">Ausloggen</a>
+					</li>
+				</ul>
+			</div>
+		</div><!-- /page -->
+        
+       <div data-role="page" class="ui-responsive-panel" id="greetings_thanks">
+			<div data-role="header" class="ui-overlay-shadow" data-position="fixed" data-tap-toggle="false" data-id="schleyheader">
+				<a href="#dashboard" class="ui-btn-rose" data-iconpos="notext" data-role="button" data-icon="rose-m-back" data-iconshadow="false" data-shadow="false" data-corners="false" title="einen Schritt zurück"></a>
+				<h1>Grusskarten</h1>
+				<div class="ui-btn-right">
+					<a href="tel:+49201289900" class="btn_phone tablet-hide" title="Jetzt anrufen" data-iconpos="notext" data-role="button" data-icon="phone" data-iconshadow="false" data-shadow="false" data-corners="false" ></a>
+					<a href="#optionspanel" class="btn_riffle" title="Menü öffnen" data-iconpos="notext" data-role="button" data-icon="riffle" data-iconshadow="false" data-shadow="false" data-corners="false"></a>
+				</div>
+			</div><!-- /header -->
+
+			<div data-role="content">
+				
+						<h2>Sie haben Post!</h2>
+				<p>
+					Wir haben eine E-Mail mit einem Bestätigungslink an Ihre E-Mailadresse gesendet. Bitte klicklen Sie diesen an um die digitale Grußkarte beim Empfänger zuzustellen.
+				</p>
+
+			</div><!-- /content -->
+
+			<div data-role="footer" data-tap-toggle="false"  data-id="tabmenu" data-position="fixed">
+				<div data-role="navbar" id="navbar">
+					<ul>
+						<li>
+							<a href="#reminder" class="reminder" data-icon="reminder">Reminder</a>
+						</li>
+						<li>
+							<a href="#greetings" class="greeting ui-state-persist" data-icon="greeting">Grußkarten</a>
+						</li>
+						<li>
+							<a href="#coupon" class="coupons" data-icon="coupon">Coupons</a>
+						</li>
+						<li>
+							<a href="#kontakt" class="contact" data-icon="contact">Kontakt</a>
+						</li>
+					</ul>
+				</div><!-- /navbar -->
+			</div><!-- /footer -->
+			<div data-role="panel" id="optionspanel" data-position="right" data-display="reveal">
+				<ul class="optionmenu">
+					<li>
+						<a href="#kontakt" title="gehe zu Kontakt und Öffnungszeiten" data-role="button" data-icon="rose" data-iconshadow="false" data-shadow="false" data-corners="false">Kontakt und Öffnungszeiten</a>
+					</li>
+					<li>
+						<a href="#anfahrt" title="gehe zur Anfahrtsbeschreibung" data-role="button" data-icon="directions" data-iconshadow="false" data-shadow="false" data-corners="false">Ihr Weg zu uns</a>
+					</li>
+					<li>
+						<a href="#datenschutz" title="gehe zu Datenschutz" data-role="button" data-icon="privacy" data-iconshadow="false" data-shadow="false" data-corners="false">Datenschutz</a>
+					</li>
+					<li>
+						<a href="#impressum" title="gehe zum Impressum" data-role="button" data-icon="imprint" data-iconshadow="false" data-shadow="false" data-corners="false">Impressum</a>
+					</li>
+					<li>
+						<a href="mailto:info@schley.de" title="E-Mail an infp@schley.de schreiben" data-role="button" data-icon="mail" data-iconshadow="false" data-shadow="false" data-corners="false">info@schley.de</a>
+					</li>
+					<li>
+						<a href="tel:+49201289900" title="Rufen Sie uns an" data-role="button" data-icon="phone" data-iconshadow="false" data-shadow="false" data-corners="false">02 01/28 99 00</a>
+					</li>
+					<li>
+						<a href="http://www.schley.de" rel="external" target="_blank" title="gehe zur Website von Schley Essen" data-role="button" data-icon="www" data-iconshadow="false" data-shadow="false" data-corners="false">www.schley.de</a>
+					</li>
+					
+					<li>
+						<a href="" title="Ausloggen" data-role="button" data-icon="logout" data-iconshadow="false" data-shadow="false" data-corners="false" onclick="logMeout()">Ausloggen</a>
+					</li>
+				</ul>
+			</div>
+		</div><!-- /page -->
+        
+        
+		<div data-role="page" class="ui-responsive-panel" id="greetings_sending">
+			<div data-role="header" class="ui-overlay-shadow" data-position="fixed" data-tap-toggle="false" data-id="schleyheader">
+				<a href="#dashboard" class="ui-btn-rose" data-iconpos="notext" data-role="button" data-icon="rose-m-back" data-iconshadow="false" data-shadow="false" data-corners="false" title="einen Schritt zurück"></a>
+				<h1>Grusskarten</h1>
+				<div class="ui-btn-right">
+					<a href="tel:+49201289900" class="btn_phone tablet-hide" title="Jetzt anrufen" data-iconpos="notext" data-role="button" data-icon="phone" data-iconshadow="false" data-shadow="false" data-corners="false" ></a>
+					<a href="#optionspanel" class="btn_riffle" title="Menü öffnen" data-iconpos="notext" data-role="button" data-icon="riffle" data-iconshadow="false" data-shadow="false" data-corners="false"></a>
+				</div>
+			</div><!-- /header -->
+
+			<div data-role="content">
+			     sending ecard...
+			</div><!-- /content -->
+		</div><!-- /page -->
+        
+        <div data-role="page" class="ui-responsive-panel" id="greetings_sent">
+			<div data-role="header" class="ui-overlay-shadow" data-position="fixed" data-tap-toggle="false" data-id="schleyheader">
+				<a href="#dashboard" class="ui-btn-rose" data-iconpos="notext" data-role="button" data-icon="rose-m-back" data-iconshadow="false" data-shadow="false" data-corners="false" title="einen Schritt zurück"></a>
+				<h1>Grusskarten</h1>
+				<div class="ui-btn-right">
+					<a href="tel:+49201289900" class="btn_phone tablet-hide" title="Jetzt anrufen" data-iconpos="notext" data-role="button" data-icon="phone" data-iconshadow="false" data-shadow="false" data-corners="false" ></a>
+					<a href="#optionspanel" class="btn_riffle" title="Menü öffnen" data-iconpos="notext" data-role="button" data-icon="riffle" data-iconshadow="false" data-shadow="false" data-corners="false"></a>
+				</div>
+			</div><!-- /header -->
+
+			<div data-role="content">
+				<h2>Hurra!</h2>
+				<p>
+					Ihre Grußkarte wurde erfolgreich an den Empfänger versendet.
+				</p>
+
+			</div><!-- /content -->
+
+			<div data-role="footer" data-tap-toggle="false"  data-id="tabmenu" data-position="fixed">
+				<div data-role="navbar" id="navbar">
+					<ul>
+						<li>
+							<a href="#reminder" class="reminder" data-icon="reminder">Reminder</a>
+						</li>
+						<li>
+							<a href="#greetings" class="greeting ui-state-persist" data-icon="greeting">Grußkarten</a>
+						</li>
+						<li>
+							<a href="#coupon" class="coupons" data-icon="coupon">Coupons</a>
+						</li>
+						<li>
+							<a href="#kontakt" class="contact" data-icon="contact">Kontakt</a>
+						</li>
+					</ul>
+				</div><!-- /navbar -->
+			</div><!-- /footer -->
+			<div data-role="panel" id="optionspanel" data-position="right" data-display="reveal">
+				<ul class="optionmenu">
+					<li>
+						<a href="#kontakt" title="gehe zu Kontakt und Öffnungszeiten" data-role="button" data-icon="rose" data-iconshadow="false" data-shadow="false" data-corners="false">Kontakt und Öffnungszeiten</a>
+					</li>
+					<li>
+						<a href="#anfahrt" title="gehe zur Anfahrtsbeschreibung" data-role="button" data-icon="directions" data-iconshadow="false" data-shadow="false" data-corners="false">Ihr Weg zu uns</a>
+					</li>
+					<li>
+						<a href="#datenschutz" title="gehe zu Datenschutz" data-role="button" data-icon="privacy" data-iconshadow="false" data-shadow="false" data-corners="false">Datenschutz</a>
+					</li>
+					<li>
+						<a href="#impressum" title="gehe zum Impressum" data-role="button" data-icon="imprint" data-iconshadow="false" data-shadow="false" data-corners="false">Impressum</a>
+					</li>
+					<li>
+						<a href="mailto:info@schley.de" title="E-Mail an infp@schley.de schreiben" data-role="button" data-icon="mail" data-iconshadow="false" data-shadow="false" data-corners="false">info@schley.de</a>
+					</li>
+					<li>
+						<a href="tel:+49201289900" title="Rufen Sie uns an" data-role="button" data-icon="phone" data-iconshadow="false" data-shadow="false" data-corners="false">02 01/28 99 00</a>
+					</li>
+					<li>
+						<a href="http://www.schley.de" rel="external" target="_blank" title="gehe zur Website von Schley Essen" data-role="button" data-icon="www" data-iconshadow="false" data-shadow="false" data-corners="false">www.schley.de</a>
+					</li>
+					<li>
+						<a href="" title="Ausloggen" data-role="button" data-icon="logout" data-iconshadow="false" data-shadow="false" data-corners="false" onclick="logMeout()">Ausloggen</a>
+					</li>
+				</ul>
+			</div>
+		</div><!-- /page -->
+
+		
+
+		<div data-role="page" class="ui-responsive-panel" id="kontakt">
+			<div data-role="header" class="ui-overlay-shadow" data-position="fixed" data-tap-toggle="false" data-id="schleyheader">
+				<a href="#dashboard" class="ui-btn-rose" data-iconpos="notext" data-role="button" data-icon="rose-m-back" data-iconshadow="false" data-shadow="false" data-corners="false" title="einen Schritt zurück"></a>
+				<h1>Kontakt</h1>
+				<div class="ui-btn-right">
+					<a href="tel:+49201289900" class="btn_phone tablet-hide" title="Jetzt anrufen" data-iconpos="notext" data-role="button" data-icon="phone" data-iconshadow="false" data-shadow="false" data-corners="false" ></a>
+					<a href="#optionspanel" class="btn_riffle" title="Menü öffnen" data-iconpos="notext" data-role="button" data-icon="riffle" data-iconshadow="false" data-shadow="false" data-corners="false"></a>
+				</div>
+			</div><!-- /header -->
+
+			<div data-role="content">
+
+				<div class="ui-grid-a mybreakpoint">
+					<div class="ui-block-a">
+						<h2>Schley's Blumenparadies</h2>
+						<h3>Am Flughafen Essen/Mülheim</h3>
+						<span class="airplane"></span>
+						<p>
+							Lilienthalstraße 30
+							<br />
+							45149 Essen-Haarzopf
+							<br />
+							Tel.: 02 01/28 99 00
+							<br />
+							E-Mail: <a href="mailto:info@schley.de" title="E-Mail an Schley's Blumenparadies schreiben">info@schley.de</a>
+							<br />
+							<a href="http://www.schley.de/" title="gehe zur Schley Website" target="_blank">www.schley.de</a>
+						</p>
+					</div>
+					<div class="ui-block-b">
+						<h3>Öffnungszeiten</h3>
+						<table>
+							<tr>
+								<th>Mo.–Fr.:</th><td>9:00–18:30 Uhr</td>
+							</tr>
+							<tr>
+								<th>Sa.:</th><td>9:00–18:00 Uhr</td>
+							</tr>
+							<tr>
+								<th>So.+ Feiert.:</th><td>10:30–15:30 Uhr</td>
+							</tr>
+							<tr>
+								<td colspan="2">jeden Sonntag geöffnet</td>
+							</tr>
+							<tr>
+								<td colspan="2"></td>
+							</tr>
+							<tr>
+								<th colspan="2">Geschlossen:</th>
+							</tr>
+							<tr>
+								<td colspan="2">1.+2. Weihnachtstag, Neujahr
+								<br />
+								Ostermontag, Pfingstmontag</td>
+							</tr>
+						</table>
+
+					</div><!-- /grid-a -->
+
+				</div>
+				<ul id="dashboardmenu2" style="width: 100%;" class="clearfix">
+					<li>
+						<a href="#anfahrt" class="anfahrt"><span data-icon="anfahrt" class="icon anfahrt"></span><span class="btn-text">
+							Ihr Weg
+							<br />
+							zu Uns</span></a>
+					</li>
+					<li>
+						<a href="http://www.facebook.com/pages/Schleys-Blumenparadies-Essen/364171070341950" target="_blank" class="facebook" rel="external" ><span data-icon="facebook" class="icon facebook"></span><span class="btn-text">Schley
+							<br />
+							bei Facebook</span></a>
+					</li>
+
+				</ul>
+			</div><!-- /content -->
+
+			<div data-role="footer" data-tap-toggle="false"  data-id="tabmenu" data-position="fixed">
+				<div data-role="navbar" id="navbar">
+					<ul>
+						<li>
+							<a href="#reminder" class="reminder" data-icon="reminder">Reminder</a>
+						</li>
+						<li>
+							<a href="#greetings" class="greeting" data-icon="greeting">Grußkarten</a>
+						</li>
+						<li>
+							<a href="#coupon" class="coupons" data-icon="coupon">Coupons</a>
+						</li>
+						<li>
+							<a href="#kontakt" class="contact ui-state-persist" data-icon="contact">Kontakt</a>
+						</li>
+					</ul>
+				</div><!-- /navbar -->
+			</div><!-- /footer -->
+			<div data-role="panel" id="optionspanel" data-position="right" data-display="reveal">
+				<ul class="optionmenu">
+					<li>
+						<a href="#kontakt" class="current" title="gehe zu Kontakt &amp; Öffnungszeiten" data-role="button" data-icon="rose" data-iconshadow="false" data-shadow="false" data-corners="false">Kontakt &amp; Öffnungszeiten</a>
+					</li>
+					<li>
+						<a href="#anfahrt" title="gehe zur Anfahrtsbeschreibung" data-role="button" data-icon="directions" data-iconshadow="false" data-shadow="false" data-corners="false">Ihr Weg zu uns</a>
+					</li>
+					<li>
+						<a href="#datenschutz" title="gehe zu Datenschutz" data-role="button" data-icon="privacy" data-iconshadow="false" data-shadow="false" data-corners="false">Datenschutz</a>
+					</li>
+					<li>
+						<a href="#impressum" title="gehe zum Impressum" data-role="button" data-icon="imprint" data-iconshadow="false" data-shadow="false" data-corners="false">Impressum</a>
+					</li>
+					<li>
+						<a href="mailto:info@schley.de" title="E-Mail an infp@schley.de schreiben" data-role="button" data-icon="mail" data-iconshadow="false" data-shadow="false" data-corners="false">info@schley.de</a>
+					</li>
+					<li>
+						<a href="tel:+49201289900" title="Rufen Sie uns an" data-role="button" data-icon="phone" data-iconshadow="false" data-shadow="false" data-corners="false">02 01/28 99 00</a>
+					</li>
+					<li>
+						<a href="http://www.schley.de" rel="external" target="_blank" title="gehe zur Website von Schley Essen" data-role="button" data-icon="www" data-iconshadow="false" data-shadow="false" data-corners="false">www.schley.de</a>
+					</li>
+					<li>
+						<a href="" title="Ausloggen" data-role="button" data-icon="logout" data-iconshadow="false" data-shadow="false" data-corners="false" onclick="logMeout()">Ausloggen</a>
+					</li>
+				</ul>
+			</div>
+		</div><!-- /page -->
+
+		<div data-role="page" class="ui-responsive-panel" id="reminder">
+			<div data-role="header" class="ui-overlay-shadow" data-position="fixed" data-tap-toggle="false" data-id="schleyheader">
+				<a href="#dashboard" class="ui-btn-rose" data-iconpos="notext" data-role="button" data-icon="rose-m-back" data-iconshadow="false" data-shadow="false" data-corners="false" title="einen Schritt zurück"></a>
+				<h1>Reminder</h1>
+				<div class="ui-btn-right">
+
+					<a href="#addreminder" class="btn_bell" title="Neue Erinnerung hinzufügen" data-iconpos="notext" data-role="button" data-icon="bell" data-iconshadow="false" data-shadow="false" data-corners="false"></a>
+					<a href="#optionspanel" class="btn_riffle" title="Menü öffnen" data-iconpos="notext" data-role="button" data-icon="riffle" data-iconshadow="false" data-shadow="false" data-corners="false"></a>
+				</div>
+			</div><!-- /header -->
+
+			<div data-role="content">
+
+				<div class="imageHead"> 
+					<img src="img/headerbild_demo.jpg" alt="blumen" />
+				</div>
+				<!-- SHOW ONLY ON SMARTPHONES start -->
+                 <div class="noreminders_notice"><h2>Keine Reminder vorhanden</h2><p>Legen Sie jetzt ihre ersten Reminder an.<br />Klicken Sie dazu entweder auf das Glockensymbol in der oberen rechten Ecke oder auf folgenen Button.<br /><br /><a href="#addreminder" class="btn autowidth"><i class="fa fa-plus-circle"></i><span  class="label">neuen Reminder anlegen</span></a></p></div>
+                                                                                                                                                        
+                <ul data-role="listview" id="reminderlist">
+				</ul>
+				<!-- SHOW ONLY ON SMARTPHONES end -->
+
+			
+
+			</div><!-- /content -->
+
+			<div data-role="footer" data-tap-toggle="false"  data-id="tabmenu" data-position="fixed">
+				<div data-role="navbar" id="navbar">
+					<ul>
+						<li>
+							<a href="#reminder" class="reminder ui-state-persist" data-icon="reminder">Reminder</a>
+						</li>
+						<li>
+							<a href="#greetings" class="greeting" data-icon="greeting">Grußkarten</a>
+						</li>
+						<li>
+							<a href="#coupon" class="coupons" data-icon="coupon">Coupons</a>
+						</li>
+						<li>
+							<a href="#kontakt" class="contact" data-icon="contact">Kontakt</a>
+						</li>
+					</ul>
+				</div><!-- /navbar -->
+			</div><!-- /footer -->
+			<div data-role="panel" id="optionspanel" data-position="right" data-display="reveal">
+				<ul class="optionmenu">
+					<li>
+						<a href="#kontakt" title="gehe zu Kontakt &amp; Öffnungszeiten" data-role="button" data-icon="rose" data-iconshadow="false" data-shadow="false" data-corners="false">Kontakt &amp; Öffnungszeiten</a>
+					</li>
+					<li>
+						<a href="#anfahrt" title="gehe zur Anfahrtsbeschreibung" data-role="button" data-icon="directions" data-iconshadow="false" data-shadow="false" data-corners="false">Ihr Weg zu uns</a>
+					</li>
+					<li>
+						<a href="#datenschutz" title="gehe zu Datenschutz" data-role="button" data-icon="privacy" data-iconshadow="false" data-shadow="false" data-corners="false">Datenschutz</a>
+					</li>
+					<li>
+						<a href="#impressum" title="gehe zum Impressum" data-role="button" data-icon="imprint" data-iconshadow="false" data-shadow="false" data-corners="false">Impressum</a>
+					</li>
+					<li>
+						<a href="mailto:info@schley.de" title="E-Mail an infp@schley.de schreiben" data-role="button" data-icon="mail" data-iconshadow="false" data-shadow="false" data-corners="false">info@schley.de</a>
+					</li>
+					<li>
+						<a href="tel:+49201289900" title="Rufen Sie uns an" data-role="button" data-icon="phone" data-iconshadow="false" data-shadow="false" data-corners="false">02 01/28 99 00</a>
+					</li>
+					<li>
+						<a href="http://www.schley.de" rel="external" target="_blank" title="gehe zur Website von Schley Essen" data-role="button" data-icon="www" data-iconshadow="false" data-shadow="false" data-corners="false">www.schley.de</a>
+					</li>
+					<li>
+						<a href="" title="Ausloggen" data-role="button" data-icon="logout" data-iconshadow="false" data-shadow="false" data-corners="false" onclick="logMeout()">Ausloggen</a>
+					</li>
+				</ul>
+			</div>
+            
+            
+            <div id="confirm" class="ui-content" data-role="popup" data-theme="none">
+                <h2 id="question">Möchten Sie <span id="entrytodelete">diesen Eintrag</span> wirklich löschen?</h2>
+                
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a id="yes" data-role="button" data-mini="true" class="ui-submit" data-shadow="false" data-rel="back">Ja</a>
+                    </div>
+                    <div class="ui-block-b">
+                        <a id="cancel" data-role="button" data-mini="true" data-shadow="false" class="ui-submit" data-rel="back">Abbrechen</a>                
+                    </div>
+                </div>
+                
+            </div><!-- /popup -->
+                    
+            
+            
+		</div><!-- /page -->
+    
+    
+
+
+
+    
+   
+    
+
+		<div data-role="page" class="ui-responsive-panel" id="reminderdetail">
+			<div data-role="header" class="ui-overlay-shadow" data-position="fixed" data-tap-toggle="false" data-id="schleyheader">
+				<a data-rel="back" class="ui-btn-rose" data-transition="slide"  data-iconpos="notext"  data-direction="reverse" data-role="button" data-icon="rose-m-back" data-iconshadow="false" data-shadow="false" data-corners="false" title="einen Schritt zurück">Zurück</a>
+				<h1 class="reminder_personname2">Reminder</h1>
+				<div class="ui-btn-right">
+					<a href="tel:+49201289900" class="btn_phone tablet-hide" title="Jetzt anrufen" data-iconpos="notext" data-role="button" data-icon="phone" data-iconshadow="false" data-shadow="false" data-corners="false" ></a>
+					<a href="#optionspanel" class="btn_riffle" title="Menü öffnen" data-iconpos="notext" data-role="button" data-icon="riffle" data-iconshadow="false" data-shadow="false" data-corners="false"></a>
+				</div>
+			</div><!-- /header -->
+
+			<div data-role="content">
+				<div class="imageHead nonmobile-hide">
+					<img src="img/headerbild_demo.jpg" alt="blumen" />
+				</div>
+
+					<div class="portraitbox">
+					<img id="reminder_avatar" src="img/profile_demo001.jpg" alt="Name der Person">
+					<h1 class="personname" id="reminder_personname">Nina hat Geburtstag</h1>
+					<p class="description">
+						<span id="reminder_desc">wird in 20 Tagen 45</span>
+						<br />
+						<span id="reminder_date">20.02.2020</span>
+					</p>
+				</div>
+
+				<div class="geschenke">
+					keine Geschenk geladen
+				</div>
+				
+			</div><!-- /content -->
+
+			<div data-role="footer" data-tap-toggle="false"  data-id="tabmenu" data-position="fixed">
+				<div data-role="navbar" id="navbar">
+					<ul>
+						<li>
+							<a href="#reminder" class="reminder ui-state-persist" data-icon="reminder">Reminder</a>
+						</li>
+						<li>
+							<a href="#greetings" class="greeting" data-icon="greeting">Grußkarten</a>
+						</li>
+						<li>
+							<a href="#coupon" class="coupons" data-icon="coupon">Coupons</a>
+						</li>
+						<li>
+							<a href="#kontakt" class="contact" data-icon="contact">Kontakt</a>
+						</li>
+					</ul>
+				</div><!-- /navbar -->
+			</div><!-- /footer -->
+			<div data-role="panel" id="optionspanel" data-position="right" data-display="reveal">
+				<ul class="optionmenu">
+					<li>
+						<a href="#kontakt" title="gehe zu Kontakt &amp; Öffnungszeiten" data-role="button" data-icon="rose" data-iconshadow="false" data-shadow="false" data-corners="false">Kontakt &amp; Öffnungszeiten</a>
+					</li>
+					<li>
+						<a href="#anfahrt" title="gehe zur Anfahrtsbeschreibung" data-role="button" data-icon="directions" data-iconshadow="false" data-shadow="false" data-corners="false">Ihr Weg zu uns</a>
+					</li>
+					<li>
+						<a href="#datenschutz" title="gehe zu Datenschutz" data-role="button" data-icon="privacy" data-iconshadow="false" data-shadow="false" data-corners="false">Datenschutz</a>
+					</li>
+					<li>
+						<a href="#impressum" title="gehe zum Impressum" data-role="button" data-icon="imprint" data-iconshadow="false" data-shadow="false" data-corners="false">Impressum</a>
+					</li>
+					<li>
+						<a href="mailto:info@schley.de" title="E-Mail an infp@schley.de schreiben" data-role="button" data-icon="mail" data-iconshadow="false" data-shadow="false" data-corners="false">info@schley.de</a>
+					</li>
+					<li>
+						<a href="tel:+49201289900" title="Rufen Sie uns an" data-role="button" data-icon="phone" data-iconshadow="false" data-shadow="false" data-corners="false">02 01/28 99 00</a>
+					</li>
+					<li>
+						<a href="http://www.schley.de" rel="external" target="_blank" title="gehe zur Website von Schley Essen" data-role="button" data-icon="www" data-iconshadow="false" data-shadow="false" data-corners="false">www.schley.de</a>
+					</li>
+					<li>
+						<a href="" title="Ausloggen" data-role="button" data-icon="logout" data-iconshadow="false" data-shadow="false" data-corners="false" onclick="logMeout()">Ausloggen</a>
+					</li>
+				</ul>
+			</div>
+		</div><!-- /page -->
+
+    
+    
+    
+    
+    
+		<div data-role="page" class="ui-responsive-panel" id="impressum" data-theme="schley">
+			<div data-role="header" class="ui-overlay-shadow" data-position="fixed" data-tap-toggle="false" data-id="schleyheader">
+				<a data-rel="back" class="ui-btn-rose" data-iconpos="notext" data-role="button" data-icon="rose-m-back" data-iconshadow="false" data-shadow="false" data-corners="false" title="einen Schritt zurück"></a>
+				<h1>Impressum</h1>
+				<div class="ui-btn-right">
+					<a href="tel:+49201289900" class="btn_phone tablet-hide" title="Jetzt anrufen" data-iconpos="notext" data-role="button" data-icon="phone" data-iconshadow="false" data-shadow="false" data-corners="false" ></a>
+					<a href="#optionspanel" class="btn_riffle" title="Menü öffnen" data-iconpos="notext" data-role="button" data-icon="riffle" data-iconshadow="false" data-shadow="false" data-corners="false"></a>
+				</div>
+			</div><!-- /header -->
+
+			<div data-role="content" class="content">
+				<h2>Impressum</h2>
+				<p>
+					Schley&acute;s Blumenparadies
+					<br />
+                    (Am Flughafen Essen/Mülheim)
+                    Inh. Jürgen Schley
+					<br />
+					Lilienthalstra&szlig;e 30
+					<br />
+					45149 Essen-Haarzopf
+				</p>
+				<p>
+					E-Mail: <a href="mailto:info@schley.de" title="info@schley.de">info@schley.de</a>
+				</p>
+				<p>
+					Amtsgericht Essen &bull; HRA 6154
+					<br />
+					Us-Id-Nr.: DE 119803847
+					<br />
+					Inhaltlich verantwortlich: Stefanie Schley
+				</p>
+				<p>
+					Bildnachweis: Schley, privat</p>
+				<p>
+					Sehr geehrter Besucher,
+					<br />
+					von unserer App führen Links zu anderen Webseiten im Internet, für all
+					<br />
+					diese Links gilt, dass wir keinerlei Einfluss auf die Gestaltung und die Inhalte
+					<br />
+					der gelinkten Seiten nehmen und somit auch keine Garantie für die dort aufgeführten
+					<br />
+					Informationen geben k&ouml;nnen. Auch für die Aktualit&auml;t von Preisen und
+					<br />
+					Terminen auf unserer Webseite geben wir keine Garantie.
+				</p>
+				<p>
+					Vielen Dank für Ihr Verst&auml;ndnis.
+				</p>
+				<p>
+					Copyright <script>new Date().getYear();</script> Schley&rsquo;s Blumenparadies (Am Flughafen Essen/Mülheim)
+				</p>
+
+			</div><!-- /content -->
+
+			<div data-role="footer" data-tap-toggle="false"  data-id="tabmenu" data-position="fixed">
+				<div data-role="navbar">
+					<ul>
+						<li>
+							<a href="#reminder" class="reminder" data-icon="reminder">Reminder</a>
+						</li>
+						<li>
+							<a href="#greetings" class="greeting" data-icon="greeting">Grußkarten</a>
+						</li>
+						<li>
+							<a href="#coupon" class="coupons" data-icon="coupon">Coupons</a>
+						</li>
+						<li>
+							<a href="#kontakt" class="contact" data-icon="contact">Kontakt</a>
+						</li>
+					</ul>
+				</div><!-- /navbar -->
+			</div><!-- /footer -->
+			<div data-role="panel" id="optionspanel" data-position="right" data-display="reveal">
+				<ul class="optionmenu">
+					<li>
+						<a href="#kontakt" title="gehe zu Kontakt &amp; Öffnungszeiten" data-role="button" data-icon="rose" data-iconshadow="false" data-shadow="false" data-corners="false">Kontakt &amp; Öffnungszeiten</a>
+					</li>
+					<li>
+						<a href="#anfahrt" title="gehe zur Anfahrtsbeschreibung" data-role="button" data-icon="directions" data-iconshadow="false" data-shadow="false" data-corners="false">Ihr Weg zu uns</a>
+					</li>
+					<li>
+						<a href="#datenschutz" title="gehe zu Datenschutz" data-role="button" data-icon="privacy" data-iconshadow="false" data-shadow="false" data-corners="false">Datenschutz</a>
+					</li>
+					<li>
+						<a href="#impressum" class="current" title="gehe zum Impressum" data-role="button" data-icon="imprint" data-iconshadow="false" data-shadow="false" data-corners="false">Impressum</a>
+					</li>
+					<li>
+						<a href="mailto:info@schley.de" title="E-Mail an infp@schley.de schreiben" data-role="button" data-icon="mail" data-iconshadow="false" data-shadow="false" data-corners="false">info@schley.de</a>
+					</li>
+					<li>
+						<a href="tel:+49201289900" title="Rufen Sie uns an" data-role="button" data-icon="phone" data-iconshadow="false" data-shadow="false" data-corners="false">02 01/28 99 00</a>
+					</li>
+					<li>
+						<a href="http://www.schley.de" rel="external" target="_blank" title="gehe zur Website von Schley Essen" data-role="button" data-icon="www" data-iconshadow="false" data-shadow="false" data-corners="false">www.schley.de</a>
+					</li>
+					<li>
+						<a href="" title="Ausloggen" data-role="button" data-icon="logout" data-iconshadow="false" data-shadow="false" data-corners="false" onclick="logMeout()">Ausloggen</a>
+					</li>
+				</ul>
+			</div>
+		</div><!-- /page -->
+
+		<div data-role="page" class="ui-responsive-panel" id="datenschutz" data-theme="schley">
+			<div data-role="header" class="ui-overlay-shadow" data-position="fixed" data-tap-toggle="false" data-id="schleyheader">
+				<a data-rel="back" class="ui-btn-rose" data-iconpos="notext" data-role="button" data-icon="rose-m-back" data-iconshadow="false" data-shadow="false" data-corners="false" title="einen Schritt zurück"></a>
+				<h1>Datenschutz</h1>
+				<div class="ui-btn-right">
+					<a href="tel:+49201289900" class="btn_phone tablet-hide" title="Jetzt anrufen" data-iconpos="notext" data-role="button" data-icon="phone" data-iconshadow="false" data-shadow="false" data-corners="false" ></a>
+					<a href="#optionspanel" class="btn_riffle" title="Menü öffnen" data-iconpos="notext" data-role="button" data-icon="riffle" data-iconshadow="false" data-shadow="false" data-corners="false"></a>
+				</div>
+			</div><!-- /header -->
+
+			<div data-role="content" class="content">
+
+                
+                
+				<h2>Datenschutzerklärung von Schley</h2>
+				<p>
+					Ihre Daten werden nicht an Dritte weitergegeben und nur zu eigenen Werbezwecken verwendet.
+					Wir weisen darauf hin, dass die Datenübertragung im Internet (z.B.
+					bei der Kommunikation per E-Mail) Sicherheitslücken aufweisen kann.
+					Ein lückenloser Schutz der Daten vor dem Zugriff durch Dritte ist nicht
+					möglich. 
+				</p>
+             
+                <h2>Benutzerkonto</h2>
+                <p>
+                    Für die Verwendung unserer App ist es erforderlich ein Benutzerkonto anzulegen. Die App erhebt Namen, Geburtsdatum, Anschrift und E-Mailadressen. Ohne die Eingabe dieser Daten können Sie die App nicht vollständig nutzen. Die von Ihnen eingegebenen Proildaten werden vertraulich behandelt und nicht an Dritte weiter gegeben. Sie haben jederzeit das Recht Ihr Profil und alle damit verbundenen Daten zu löschen. Schreiben Sie dazu einfach eine kurze E-Mail an app@schley.de.
+                </p>
+                <h2>Zugriff auf Kamera und Speicher</h2>
+                <p>Im Festtagsreminder können den Erinnerungeinträgen für Geburtstage, Hochzeiten und Jubiläen Bilder zugeordnet werden. Falls Sie keine Bilder zuordnen möchten, müssen Sie das nicht tun. Stattdessen wird dann automatisch ein Standard-Platzhalterbild verwendet. Eigene Bilder können entweder aus dem internen Speicher des mobilen Endgerätes ausgewählt, oder über die Gerät-eigene Kamera aufgenommen werden.</p>
+                
+                <h2>Newsletter</h2>
+                <p>Die von Ihnen angegebenen E-Mailadressen verwenden wir ausschließlich für interne Werbezwecke. So erhalten Sie von uns einen regelmäßig erscheinenden Newsletter. Falls Sie diesen nicht mehr empfangen möchten, klicken Sie einfach in einem der Newsletter auf den Abmeldelink.</p>
+            
+			</div><!-- /content -->
+
+			<div data-role="footer" data-tap-toggle="false"  data-id="tabmenu" data-position="fixed">
+				<div data-role="navbar">
+					<ul>
+						<li>
+							<a href="#reminder" class="reminder" data-icon="reminder">Reminder</a>
+						</li>
+						<li>
+							<a href="#greetings" class="greeting" data-icon="greeting">Grußkarten</a>
+						</li>
+						<li>
+							<a href="#coupon" class="coupons" data-icon="coupon">Coupons</a>
+						</li>
+						<li>
+							<a href="#kontakt" class="contact" data-icon="contact">Kontakt</a>
+						</li>
+					</ul>
+				</div><!-- /navbar -->
+			</div><!-- /footer -->
+			<div data-role="panel" id="optionspanel" data-position="right" data-display="reveal">
+				<ul class="optionmenu">
+					<li>
+						<a href="#kontakt" title="gehe zu Kontakt &amp; Öffnungszeiten" data-role="button" data-icon="rose" data-iconshadow="false" data-shadow="false" data-corners="false">Kontakt &amp; Öffnungszeiten</a>
+					</li>
+					<li>
+						<a href="#anfahrt" title="gehe zur Anfahrtsbeschreibung" data-role="button" data-icon="directions" data-iconshadow="false" data-shadow="false" data-corners="false">Ihr Weg zu uns</a>
+					</li>
+					<li>
+						<a href="#datenschutz" class="current" title="gehe zu Datenschutz" data-role="button" data-icon="privacy" data-iconshadow="false" data-shadow="false" data-corners="false">Datenschutz</a>
+					</li>
+					<li>
+						<a href="#impressum" title="gehe zum Impressum" data-role="button" data-icon="imprint" data-iconshadow="false" data-shadow="false" data-corners="false">Impressum</a>
+					</li>
+					<li>
+						<a href="mailto:info@schley.de" title="E-Mail an infp@schley.de schreiben" data-role="button" data-icon="mail" data-iconshadow="false" data-shadow="false" data-corners="false">info@schley.de</a>
+					</li>
+					<li>
+						<a href="tel:+49201289900" title="Rufen Sie uns an" data-role="button" data-icon="phone" data-iconshadow="false" data-shadow="false" data-corners="false">02 01/28 99 00</a>
+					</li>
+					<li>
+						<a href="http://www.schley.de" rel="external" target="_blank" title="gehe zur Website von Schley Essen" data-role="button" data-icon="www" data-iconshadow="false" data-shadow="false" data-corners="false">www.schley.de</a>
+					</li>
+					<li>
+						<a href="" title="Ausloggen" data-role="button" data-icon="logout" data-iconshadow="false" data-shadow="false" data-corners="false" onclick="logMeout()">Ausloggen</a>
+					</li>
+				</ul>
+			</div>
+		</div><!-- /page -->
+
+		<div data-role="page" class="ui-responsive-panel" id="agb" data-theme="schley">
+			<div data-role="header" class="ui-overlay-shadow" data-position="fixed" data-tap-toggle="false" data-id="schleyheader">
+				<a data-rel="back" class="ui-btn-rose" data-iconpos="notext" data-role="button" data-icon="rose-m-back" data-iconshadow="false" data-shadow="false" data-corners="false" title="einen Schritt zurück"></a>
+				<h1>Schley AGB's</h1>
+				<div class="ui-btn-right">
+					<a href="tel:+49201289900" class="btn_phone tablet-hide" title="Jetzt anrufen" data-iconpos="notext" data-role="button" data-icon="phone" data-iconshadow="false" data-shadow="false" data-corners="false" ></a>
+					<a href="#optionspanel" class="btn_riffle" title="Menü öffnen" data-iconpos="notext" data-role="button" data-icon="riffle" data-iconshadow="false" data-shadow="false" data-corners="false"></a>
+				</div>
+			</div><!-- /header -->
+
+			<div data-role="content" class="content">
+				<h2>Allgemeine Geschäftsbedingungen</h2>
+				<p>
+					noch einfügen!
+				</p>
+			</div><!-- /content -->
+
+			<div data-role="footer" data-tap-toggle="false"  data-id="tabmenu" data-position="fixed">
+				<div data-role="navbar">
+					<ul>
+						<li>
+							<a href="#reminder" class="reminder" data-icon="reminder">Reminder</a>
+						</li>
+						<li>
+							<a href="#greetings" class="greeting" data-icon="greeting">Grußkarten</a>
+						</li>
+						<li>
+							<a href="#coupon" class="coupons" data-icon="coupon">Coupons</a>
+						</li>
+						<li>
+							<a href="#kontakt" class="contact" data-icon="contact">Kontakt</a>
+						</li>
+					</ul>
+				</div><!-- /navbar -->
+			</div><!-- /footer -->
+			<div data-role="panel" id="optionspanel" data-position="right" data-display="reveal">
+				<ul class="optionmenu">
+					<li>
+						<a href="#kontakt" title="gehe zu Kontakt &amp; Öffnungszeiten" data-role="button" data-icon="rose" data-iconshadow="false" data-shadow="false" data-corners="false">Kontakt &amp; Öffnungszeiten</a>
+					</li>
+					<li>
+						<a href="#anfahrt" title="gehe zur Anfahrtsbeschreibung" data-role="button" data-icon="directions" data-iconshadow="false" data-shadow="false" data-corners="false">Ihr Weg zu uns</a>
+					</li>
+					<li>
+						<a href="#datenschutz" title="gehe zu Datenschutz" data-role="button" data-icon="privacy" data-iconshadow="false" data-shadow="false" data-corners="false">Datenschutz</a>
+					</li>
+					<li>
+						<a href="#impressum" title="gehe zum Impressum" data-role="button" data-icon="imprint" data-iconshadow="false" data-shadow="false" data-corners="false">Impressum</a>
+					</li>
+					<li>
+						<a href="mailto:info@schley.de" title="E-Mail an infp@schley.de schreiben" data-role="button" data-icon="mail" data-iconshadow="false" data-shadow="false" data-corners="false">info@schley.de</a>
+					</li>
+					<li>
+						<a href="tel:+49201289900" title="Rufen Sie uns an" data-role="button" data-icon="phone" data-iconshadow="false" data-shadow="false" data-corners="false">02 01/28 99 00</a>
+					</li>
+					<li>
+						<a href="http://www.schley.de" rel="external" target="_blank" title="gehe zur Website von Schley Essen" data-role="button" data-icon="www" data-iconshadow="false" data-shadow="false" data-corners="false">www.schley.de</a>
+					</li>
+					<li>
+						<a href="" title="Ausloggen" data-role="button" data-icon="logout" data-iconshadow="false" data-shadow="false" data-corners="false" onclick="logMeout()">Ausloggen</a>
+					</li>
+				</ul>
+			</div>
+		</div><!-- /page -->
+
+		
+		<!-- DIALOGES -->
+		<!-- DIALOG: ADD REMINDER -->
+
+		<div data-role="dialog" id="addreminder">
+			<div data-role="header">
+				<h1>Reminder hinzufügen</h1>
+			</div>
+			<div data-role="content" data-theme="c" data-overlay-theme="z" data-position-to="window">
+				
+				<form method="post" data-ajax="false" id="reminderform2" accept-charset="utf-8">
+					<input type="hidden" name="MAX_FILE_SIZE" value="6291456">
+                    <input type="hidden" name="eventdate" id="eventdate" />
+
+					<fieldset data-role="fieldcontain" class="ui-hide-label">
+						<label for="eventname">Bezeichnung des Events</label>
+						<input type="text" name="eventname" id="eventname" value="" placeholder="Bezeichnung des Events" required />
+					</fieldset>
+
+					<div data-role="fieldcontain" class="ui-hide-label">
+						<input type="hidden" name="eventphoto" id="eventphoto" value="/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAABQAAD/4QMsaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLwA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjUtYzAyMSA3OS4xNTQ5MTEsIDIwMTMvMTAvMjktMTE6NDc6MTYgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDQyAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo4NUM3NjkwMzdFMTgxMUUzQUQwMEREOTc0ODU0QTk4MyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo4NUM3NjkwNDdFMTgxMUUzQUQwMEREOTc0ODU0QTk4MyI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjg1Qzc2OTAxN0UxODExRTNBRDAwREQ5NzQ4NTRBOTgzIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjg1Qzc2OTAyN0UxODExRTNBRDAwREQ5NzQ4NTRBOTgzIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+/+4ADkFkb2JlAGTAAAAAAf/bAIQAAgICAgICAgICAgMCAgIDBAMC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" />
+					</div>
+                    <h3>Bild</h3>
+                    <div id="reminderPicPreview">
+                        <a href="" data-role="button" data-icon="delete" data-corners="false" data-shadow="false" data-iconshadow="false" data-iconpos="notext" id="removeReminderPicPreviewBtn" >Bild löschen</a>
+					   <img src="data:image/jpeg;base64,/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAABQAAD/4QMsaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLwA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjUtYzAyMSA3OS4xNTQ5MTEsIDIwMTMvMTAvMjktMTE6NDc6MTYgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDQyAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo4NUM3NjkwMzdFMTgxMUUzQUQwMEREOTc0ODU0QTk4MyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo4NUM3NjkwNDdFMTgxMUUzQUQwMEREOTc0ODU0QTk4MyI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjg1Qzc2OTAxN0UxODExRTNBRDAwREQ5NzQ4NTRBOTgzIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjg1Qzc2OTAyN0UxODExRTNBRDAwREQ5NzQ4NTRBOTgzIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+/+4ADkFkb2JlAGTAAAAAAf/bAIQAAgICAgICAgICAgMCAgIDBAMCAgMEBQQEBAQEBQYFBQUFBQUGBgcHCAcHBgkJCgoJCQwMDAwMDAwMDAwMDAwMDAEDAwMFBAUJBgYJDQsJCw0PDg4ODg8PDAwMDAwPDwwMDAwMDA8MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwM/8AAEQgBLAEsAwERAAIRAQMRAf/EAHkAAQACAwEBAQAAAAAAAAAAAAAGBwMEBQECCQEBAAAAAAAAAAAAAAAAAAAAABABAAIBAgEHCQcDBAMAAAAAAAECAxEEBSExQWESEwZRcYGRobEiMkLB0VJiciMUM0MVkqJTJLLCJhEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8A/fwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGDcbnBtcc5dxlrhpH1Wnn80dIIxu/FeGkzXZ7ec0/8ALk+GvoiOWfYDg5vEXFcuumeMMT9OOsR7Z1n2g0rcU4ladZ3+49GS0e6QK8V4lSdY3+ef1Xtb3zIOhg8S8UxadvJTcVjoyVj310kHf2fira5Ziu7xW21p/uR8dPvj1Ak2LLizUrkw5K5cdvlvWdY9gMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAI9xfj2LYdrBgiM276Y+mn6uvqBANzutxu8k5dzltlvPTPNHVEc0A1wAAAAAbmz3+62GTvNtlmmvz455a288AsPhXGdvxKnZ/pbmsa3wTPP11npgHZAAAAAAAAAAAAAAAAAAAAAAAAAABGuPcZ/hU/i7a3/byR8V4/t1np889AK9mZmZmZmZmdZmekHgAAAAAAAPvHkyYclMuK848lJ1peOSYkFl8F4tXiWCYvpXdYo/epHTH4o6pB2gAAAAAAAAAAAAAAAAAAAAAAAAaXEd7TYbTLub8s1jTHT8Vp5oBVGbLkz5cmbLab5Mlpte09MyDGAAAAAAAAADa2W7y7Hc4tzin4sc8tei1emJ84LY2+fHusGLcYp1x5axas/ZPmBmAAAAAAAAAAAAAAAAAAAAAAABAPFO9nLuqbOs/t7aNbx5b2jX2QCLAAAAAAAAAAAAm3hTezNc+xvPyfu4fNPJaPXpIJkAAAAAAAAAAAAAAAAAAAAAADy1orWbWnStY1meqAU/uc1tzuM+4tz5r2vPpnXQGAAAAAAAAAAAAHS4PuJ23Etpk10rN4pfzX+GfeC1gAAAAAAAAAAAAAAAAAAAAAAaHFMndcO3145JjDeInrmNPtBUwAAAAAAAAAAAAPYmYmJidJidYkFyYr95jx5Px1i3rjUH2AAAAAAAAAAAAAAAAAAAAADj8ft2eEbyfLWseu8QCrwAAAAAAAAAAAAAW7sJ7Wx2VvxYMc/wC2AbYAAAAAAAAAAAAAAAAAAAAAIt4r3EU2eHbxPxZ8msx+WkffMAgAAAAAAAAAAAAAALW4Pft8L2M+TFFf9PJ9gOkAAAAAAAAAAAAAAAAAAAAACuPE2ecvE749fh29K0rHnjtT7wR4AAAAAAAAAAAAAFl+HL9vhOCP+O16/wC6Z+0HdAAAAAAAAAAAAAAAAAAAAABV3Htf8tvNfxV/8IByAAAAAAAAAAAAAAWB4Uvrw/NT8GedPNNaglAAAAAAAAAAAAAAAAAAAAAAK38TYppxW9/+bHS8eiOz/wCoI+AAAAAAAAAAAAACc+EZ/Z3tfJek+uJ+4EvAAAAAAAAAAAAAAAAAAAAABEPFm1m2Lbbysf0pnHknqty19oIMAAAAAAAAAAAAACw/C+3ti4fbNaNJ3OSbV/TXkj26gkoAAAAAAAAAAAAAAAAAAAAAMO4wYtzhyYM1e1jy17N4BWvFeD7jhl+1P7u2tOmPNHut5JBxwAAAAAAAAAAASfgvAZ3sV3W71ptf7eOOScn3QCf0pXHSuOlYpSkRWlY5oiOaAfQAAAAAAAAAAAAAAAAAAAAAAMWbDi3GK+HNSL48kaXrIKr4lsb8O3eTb21msfFhv+Kk80/YDQAAAAAAAAAB1uDcP/yO8rjtE9xi+PPPVHR6QWjWsViK1iK1rGlaxyREQD0AAAAAAAAAAAAAAAAAAAAAAAAEZ8T7Pv8AZV3VY/c2s/FPlpbkn1TpIK9AAAAAAAAABZPhzZfxeH1y2jTLu/3Lfp+mPVy+kHfAAAAAAAAAAAAAAAAAAAAAAAAABjy4qZsWTDkjWmWs0vHVMaSCodxhvt8+XBk+fDeaW9E6AwgAAAAAAA3uHbSd9vcG2jXs3trknyUjltPqBbMRFYitY0rWNIiOiIB6AAAAAAAAAAAAAAAAAAAAAAAAAACBeKtl3W5x72kfDuI7OT9dY5PXHuBFAAAAAAAATvwptIrgz7y0fHlt3eOfJWvLPrn3AloAAAAAAAAAAAAAAAAAAAAAAAAAAAI94mpFuF3tPPjyUtXz66faCuAAAAAAAAWhwCsV4Rs4jpi0z6bzIOwAAAAAAAAAAAAAAAAAAAAAAAAAAACM+KssU4fTF9WbLWNOqsTM/YCvQAAAAAAAWX4byxk4Thr04bXpb/V2vdIO6AAAAAAAAAAAAAAAAAAAAAAAAAAACu/E28jcb6NvSdce0jsz+u3Lb7IBGwAAAAAAAS/wnu4rl3GztOnex3mKOuvJaPV7gTkAAAAAAAAAAAAAAAAAAAAAAAAAAHJ4vxKnDdra+sTuMkTXb06/LPVAKuta17WvaZta0zNrTzzM88g8AAAAAAABm2+fJtc+LcYp0yYrRav3T5wWvst5i322x7nDPw3j4q9NbdMT5gbYAAAAAAAAAAAAAAAAAAAAAAAAONxLje04dFqdqM25+nBWeafzT0ArrebzPvs9txuLdq9uSIjmrHRER5AaoAAAAAAAAAOlw3im44Zm7eL48V/62Gea0fZPWCxOH8V2fEa/s5OzliPjwW5LR6OmPMDpAAAAAAAAAAAAAAAAAAAAAA1N3vtrsad5uc0Y4n5a89reaOeQQjiPiXc7ntYtpE7XDPJ2/wC5aPP0ej1gjMzMzMzOszzyAAAAAAAAAAAAD6pe1LVvS00vWda2rOkxPVIJZw7xRkx9nFxCs5ac0bivzR+qOkE0wbjBuscZdvlrlxzzWrPsnyAzAAAAAAAAAAAAAAAAAA093xDZ7KNdznrjnopz2nzVjlBEd94qy31x7DH3Nebv8mk29FeaPaCK5cuXPe2TNktlyW+a9p1kGMAAAAAAAAAAAAAAAGztd3udnkjLtstsV+nTmnqmOaQTTh3ifBm7OLfVjb5Obvq/JPn6YBKa2resXpaL1tGtbROsTHVIPoAAAAAAAAAAAHze9MdZvkvXHSvzXtMREemQcbP4h4VhmY/kTmtHRjrNvbyR7QcnP4txxrG22lreS2S0R7I194OFuvEHE9zrHf8AcUn6MMdn28s+0HGmZtM2tM2tPLMzyzIPAAAAAAAAAAAAAAAAAAAAb2z4lvdjP/WzzSvPOKeWs+iQd/H4t3MRHe7THeemazNffqDax+Lsc/1dlavlml4t7JiAdXb+IuF59InNOC09GWuntjWPaDtUvTJWL47xelvltWdYn0wD6AAAAAABHOK+IMOxm2DbxG43UclvwUnr0556oBBN1vd1vb9vc5rZZ+ms/LHmiOSAaoAAAAAAAAAAAAAAAAAAAAAAAAAAANva77d7K/b22a2Py156z56zySCc8K8Q4d7NcG5iNvuZ5Kz9F56teaeoEkAAAABEuP8AHJwdrY7O+mbmz5o+j8sdfl8gIIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACc+H+Nzlmuw3l9cnNt80/V+WZ8vkBLwAAcXjnE44dtf25/7OfWuGPJ5begFZTM2mbWmbWtOszPPMyDwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHsTNZi1ZmtqzrW0c8TALR4NxD/I7OuS0x3+P4M8dcdPpB1geWtFaza09mtY1tM9EQCqeKb63EN5lzzr3evZwV8lI5vXzg5wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAO/wCHN5/F4hTHadMW7/btH5vpn18npBZII94k3n8bh84qzpk3c93H6Y5bfd6QVwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD2trUtW9Z0tWYms+SYBbH82v+N/yHJ2e477s9fZ109fICE+J9z33Ee5ifh2tIrp+a3xT74gEcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABKf5v/y/da/F3/cdemvee7kBH95m/kbvc59de9y2tHmmeQGsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADJ3t+57jX4O329OvTQGMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH//Z" width="200" alt="" />
+					</div>
+					
+					
+                    <div class="ui-grid-a clearfix">
+                        
+							<div class="ui-block-a">
+								<a href="" id="takePhotoBtn" class="btn small textleft"><i class="fa fa-camera"></i><span class="label">Kamera</span></a>
+							</div>
+							<div class="ui-block-b">
+								<a href="" id="choosePhotoBtn" class="btn small textleft"><i class="fa fa-file-image-o"></i><span class="label">Auswählen</span></a>
+							</div>
+						</div>
+					<div data-role="controlgroup">
+						<legend>
+							Art des Events
+						</legend>
+						<input type="radio" name="eventtype" id="eventtype1" value="Geburtstag" required />
+						<label for="eventtype1">Geburtstag</label>
+
+						<input type="radio" name="eventtype" id="eventtype2" value="Jubiläum" required />
+						<label for="eventtype2">Jubiläum</label>
+
+						<input type="radio" name="eventtype" id="eventtype3" value="Hochzeit" required />
+						<label for="eventtype3">Hochzeit</label>
+                    </div>
+  
+                    <div data-role="fieldcontain" id="eventDateBlock">
+                        <label for="eventdate2" id="eventdateLabel">Veranstaltungsdatum</label>
+                        <input type="date" name="eventdate2" id="eventdate2" value="" required />
+                    </div>	
+                                    
+				</form>                 <a href="" id="addreminderBtn" class="btn"><i class="fa fa-bell-o"></i><span  class="label">neuen Reminder anlegen</span></a>
+
+			</div>
+		</div>
+		<!-- /DIALOG: ADD REMINDER -->
+
+		<!-- DIALOG: CAL IMPORT SUCCESSFUL -->
+		<div data-role="dialog" id="calsuccess">
+			<div data-role="header">
+				<h1>Import erfolreich</h1>
+			</div>
+			<div data-role="content" data-theme="c" data-overlay-theme="z" data-position-to="window">
+				Der Kalender-Import war erfolgreich.
+				<a href="#dashboard" class="cta" data-icon="arrow-r"  data-shadow="false" data-role="button">gehe zum Dashboard</a>
+			</div>
+		</div>
+		<!-- /DIALOG: CAL IMPORT SUCCESSFUL -->
+
+		<!-- DIALOG: CAL IMPORT ERROR -->
+		<div data-role="dialog" id="calerror">
+			<div data-role="header">
+				<h1>Import fehlgeschlagen</h1>
+			</div>
+			<div data-role="content" data-theme="c" data-overlay-theme="z" data-position-to="window">
+				Der Kalender-Import ist leider fehlgeschlagen. Sie können die Geburtstage auch händisch über die App eintragen.
+				<a href="#dashboard" class="cta" data-icon="arrow-r"  data-shadow="false" data-role="button">gehe zum Dashboard</a>
+
+			</div>
+		</div>
+		<!-- /DIALOG: CAL IMPORT SUCCESSFUL -->
+
+		<!-- DIALOG: Register Successful -->
+		<div data-role="dialog" id="registersuccess">
+			<div data-role="header">
+				<h1>Sie haben sich erfolgreich registriert!</h1>
+			</div>
+			<div data-role="content" data-theme="c" data-overlay-theme="z" data-position-to="window">
+				Viel Spaß mit der Schley App
+				<a href="#dashboard"  class="cta" data-icon="arrow-r"  data-shadow="false" data-role="button">weiter</a>
+
+			</div>
+		</div>
+		<!-- /DIALOG: Register successful -->
+
+		<!-- /DIALOGES end -->
+
+	</body>
+</html>

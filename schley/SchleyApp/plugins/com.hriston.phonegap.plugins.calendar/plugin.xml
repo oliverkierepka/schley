@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="com.hriston.phonegap.plugins.calendar" version="0.1">
+   <name>Calendar</name>
+   <description>This plugin allows allows you to manipulate the native calendar.</description>
+   <license>MIT</license>
+   <engines>
+      <engine name="cordova" version=">=3.0.0" />
+   </engines>
+
+   <js-module src="www/Calendar.js" name="calendar">
+      <clobbers target="calendar" />
+   </js-module>
+    
+   <platform name="ios">
+       <config-file target="config.xml" parent="/*">
+           <feature name="Calendar">
+               <param name="ios-package" value="Calendar" />
+           </feature>
+       </config-file>
+       <header-file src="src/ios/com/hriston/phonegap/plugins/Calendar.h" />
+       <source-file src="src/ios/com/hriston/phonegap/plugins/Calendar.m" />
+       <framework src="EventKit.framework" />
+       <framework src="EventKitUI.framework" />
+   </platform>
+   <platform name="android">
+      <config-file target="config.xml" parent="/*">
+         <feature name="Calendar">
+            <param name="android-package" value="com.hriston.phonegap.plugins.Calendar" />
+         </feature>
+      </config-file>
+      <config-file target="AndroidManifest.xml" parent="/*">
+          <uses-permission android:name="android.permission.READ_CALENDAR" />
+          <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+      </config-file>
+      <source-file src="src/android/com/hriston/phonegap/plugins/Calendar.java" target-dir="src/com/hriston/phonegap/plugins" />
+   </platform>
+</plugin>
